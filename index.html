@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PanaxStreaming - Bienvenido</title>
+    <style>
+        /* Estilos generales para que se vea bien en el móvil */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a; /* Fondo oscuro tipo TV */
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* El fondo oscuro detrás de la ventana */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85); /* Fondo negro semitransparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* La ventana emergente (Modal) */
+        .modal-content {
+            background: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: fadeIn 0.5s ease-out;
+            border: 3px solid #e50914; /* Color rojo estilo streaming */
+        }
+
+        h1 {
+            color: #e50914;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        /* El botón de descarga */
+        .btn-download {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+        }
+
+        .btn-download:hover {
+            background-color: #b20710;
+            transform: scale(1.05);
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Esta es la ventana emergente -->
+    <div class="modal-overlay" id="miModal">
+        <div class="modal-content">
+            <h1>¡Bienvenido a PanaxStreaming!</h1>
+            <p>
+                LISTO PARA DISFRUTAR EL MEJOR CONTENIDO DE TV EN VIVO, DEPORTES Y SERIES.<br><br>
+                ¡SI SÍ! DALE AL BOTÓN DE DESCARGAR Y DISFRUTA EN TU TELÉFONO DE TODO EL CONTENIDO DE PANAXTREAMING.
+            </p>
+            <!-- Aquí pones el enlace real a tu APK o App Store -->
+            <a href="AQUI_VA_EL_ENLACE_DE_DESCARGA" class="btn-download" download>
+                DESCARGAR AHORA
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Script simple para asegurar que la ventana se vea al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Si quisieras cerrar la ventana al hacer clic fuera, podrías añadir código aquí,
+            // pero para tu caso, queremos que se vea siempre.
+            console.log("Ventana de bienvenida cargada");
+        });
+    </script>
+
+</body>
+</html>
