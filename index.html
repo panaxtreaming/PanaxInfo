@@ -1,118 +1,1492 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PanaxStreaming - Bienvenido</title>
-    <style>
-        /* Estilos generales para que se vea bien en el móvil */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1a1a1a; /* Fondo oscuro tipo TV */
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Entretenimiento Total · Un click</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        /* El fondo oscuro detrás de la ventana */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85); /* Fondo negro semitransparente */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0b0b0e;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: pan-x pan-y;
+    }
 
-        /* La ventana emergente (Modal) */
-        .modal-content {
-            background: #fff;
-            color: #333;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            animation: fadeIn 0.5s ease-out;
-            border: 3px solid #e50914; /* Color rojo estilo streaming */
-        }
+    .app {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 20% 30%, #1a1a2e, #0a0a12);
+      overflow: hidden;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
 
-        h1 {
-            color: #e50914;
-            font-size: 24px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
+    .glow {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle at 50% 50%, rgba(120, 80, 255, 0.15), transparent 60%);
+      animation: rotateGlow 20s infinite linear;
+      pointer-events: none;
+    }
 
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            color: #555;
-        }
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-        /* El botón de descarga */
-        .btn-download {
-            background-color: #e50914;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.2s, background 0.2s;
-            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
-        }
+    /* ====== INTRO SCREEN ====== */
+    .intro-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+      padding: 1.5rem;
+      text-align: center;
+      background: rgba(8, 8, 16, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+    }
 
-        .btn-download:hover {
-            background-color: #b20710;
-            transform: scale(1.05);
-        }
+    .intro-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
-        /* Animación de entrada */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    .intro-first {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      padding: 1.5rem;
+    }
+
+    .intro-first.fade-out {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .intro-text {
+      font-size: clamp(1.8rem, 8vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      max-width: 90%;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: textReveal 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-delay: 0.3s;
+      padding: 0 0.5rem;
+      word-break: break-word;
+      background: linear-gradient(135deg, #fff 0%, #d4c4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(140, 100, 255, 0.6));
+    }
+
+    @keyframes textReveal {
+      0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(8px); }
+      60% { opacity: 1; filter: blur(0); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    }
+
+    .intro-sub {
+      font-size: clamp(1rem, 4.5vw, 1.5rem);
+      margin-top: 1.2rem;
+      font-weight: 400;
+      color: rgba(220, 210, 255, 0.9);
+      letter-spacing: 0.04em;
+      opacity: 0;
+      animation: subReveal 1.2s ease-out forwards;
+      animation-delay: 1.2s;
+      max-width: 85%;
+    }
+
+    @keyframes subReveal {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ====== SPORTS SCREEN ====== */
+    .sports-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 25;
+      padding: 1rem;
+      text-align: center;
+      background: rgba(8, 8, 16, 0.98);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    .sports-screen.active { opacity: 1; visibility: visible; }
+
+    .sports-title {
+      font-size: clamp(1.2rem, 5.5vw, 1.8rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(255, 60, 60, 0.6);
+      opacity: 0;
+      animation: fadeInScale 0.8s ease forwards;
+      flex-shrink: 0;
+    }
+
+    .sports-title span { color: #ff3b3b; }
+
+    .sports-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 90%;
+      overflow-y: auto;
+      padding: 0.2rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .sports-list::-webkit-scrollbar { display: none; }
+
+    .sport-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: clamp(0.9rem, 4.2vw, 1.2rem);
+      font-weight: 700;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      width: 100%;
+      opacity: 0;
+      transform: scale(0.6) translateY(30px);
+      animation: sportAppear 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      white-space: nowrap;
+    }
+
+    .sport-item.highlight {
+      background: linear-gradient(90deg, rgba(255, 60, 60, 0.25), rgba(255, 60, 60, 0.05));
+      border-color: rgba(255, 80, 80, 0.4);
+      box-shadow: 0 0 25px rgba(255, 60, 60, 0.15);
+    }
+
+    .sport-logo {
+      width: 40px; height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .sport-logo svg { width: 100%; height: 100%; }
+
+    .sport-text {
+      flex: 1;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @keyframes sportAppear {
+      0% { opacity: 0; transform: scale(0.6) translateY(30px); filter: blur(6px); }
+      60% { opacity: 1; filter: blur(0); }
+      80% { transform: scale(1.05) translateY(0); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ====== PROMO MODAL (Ventana emergente después de deportes) ====== */
+    .promo-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 50;
+      background: rgba(4, 4, 10, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    .promo-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .promo-modal-title {
+      font-size: clamp(1rem, 4.5vw, 1.4rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      background: linear-gradient(90deg, #ffd700, #ff8a00, #ffd700);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shineText 2.5s linear infinite;
+      filter: drop-shadow(0 0 15px rgba(255, 179, 71, 0.5));
+      opacity: 0;
+      animation: fadeInScale 0.6s ease forwards 0.2s, shineText 2.5s linear infinite 0.2s;
+    }
+
+    @keyframes shineText {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .promo-image-wrap {
+      width: 100%;
+      max-width: 420px;
+      max-height: 75vh;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(180, 140, 255, 0.2);
+      background: #000;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: promoImageIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.35s;
+    }
+
+    @keyframes promoImageIn {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .promo-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      max-height: 75vh;
+    }
+
+    .promo-close-btn {
+      margin-top: 1.2rem;
+      background: linear-gradient(145deg, #7b5aff, #5a3aff);
+      color: #fff;
+      border: none;
+      border-radius: 3rem;
+      padding: 0.9rem 2rem;
+      font-size: clamp(0.85rem, 3.8vw, 1rem);
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 12px 25px -8px rgba(90, 58, 255, 0.7);
+      opacity: 0;
+      animation: fadeInScale 0.6s ease forwards 0.7s;
+      transition: transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .promo-close-btn:active {
+      transform: scale(0.95);
+    }
+
+    .promo-progress {
+      width: 100%;
+      max-width: 320px;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 1.2rem;
+      opacity: 0;
+      animation: fadeInScale 0.5s ease forwards 0.5s;
+    }
+
+    .promo-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #7b5aff, #ff5e5e);
+      border-radius: 4px;
+      width: 0%;
+      animation: progressGrow 8s linear forwards;
+    }
+
+    @keyframes progressGrow {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* ====== STREAMING SCREEN ====== */
+    .streaming-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 25;
+      padding: 1.2rem;
+      text-align: center;
+      background: rgba(8, 8, 16, 0.98);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    .streaming-screen.active { opacity: 1; visibility: visible; }
+
+    .streaming-title {
+      font-size: clamp(1.1rem, 4.8vw, 1.6rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+      opacity: 0;
+      animation: fadeInScale 0.8s ease forwards;
+      flex-shrink: 0;
+    }
+
+    .streaming-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #ff5e5e, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+      width: 100%;
+      max-width: 400px;
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 0.3rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .platforms::-webkit-scrollbar { display: none; }
+
+    .platform-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 0.5rem;
+      border-radius: 1.2rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      opacity: 0;
+      transform: scale(0.7) translateY(30px);
+      animation: platformAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    @keyframes platformAppear {
+      0% { opacity: 0; transform: scale(0.7) translateY(30px); filter: blur(5px); }
+      60% { opacity: 1; filter: blur(0); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .platform-logo {
+      width: 60px; height: 60px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .platform-logo svg { width: 100%; height: 100%; }
+
+    .platform-name {
+      font-size: clamp(0.7rem, 3vw, 0.9rem);
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+    }
+
+    /* ====== FINAL SCREEN ====== */
+    .final-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 25;
+      padding: 1.5rem;
+      text-align: center;
+      background: radial-gradient(circle at 50% 40%, #1a0f2e, #08060f);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+
+    .final-screen.active { opacity: 1; visibility: visible; }
+
+    .final-badge {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #ffb347;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(255, 179, 71, 0.4);
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 179, 71, 0.08);
+      opacity: 0;
+      animation: fadeInScale 0.8s ease forwards;
+    }
+
+    .final-number {
+      font-size: clamp(3rem, 16vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff, #a78bff 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(140, 100, 255, 0.7));
+      opacity: 0;
+      animation: numberPop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes numberPop {
+      0% { opacity: 0; transform: scale(0.3) rotate(-8deg); filter: blur(10px); }
+      60% { opacity: 1; transform: scale(1.1) rotate(2deg); filter: blur(0); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
+    }
+
+    .final-text {
+      font-size: clamp(1rem, 4.5vw, 1.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin-top: 0.8rem;
+      line-height: 1.4;
+      max-width: 90%;
+      opacity: 0;
+      animation: subReveal 1s ease forwards;
+      animation-delay: 1s;
+    }
+
+    .final-devices {
+      font-size: clamp(0.8rem, 3.5vw, 1rem);
+      font-weight: 500;
+      color: #b8a6ff;
+      margin-top: 1.2rem;
+      letter-spacing: 0.04em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: subReveal 1s ease forwards;
+      animation-delay: 1.4s;
+      max-width: 90%;
+    }
+
+    .final-devices span {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.4rem 0.9rem;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-weight: 600;
+      color: #e0d6ff;
+      font-size: clamp(0.7rem, 3vw, 0.9rem);
+    }
+
+    .final-cta {
+      margin-top: 2rem;
+      font-size: clamp(0.9rem, 3.8vw, 1.1rem);
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(145deg, #7b5aff, #5a3aff);
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      box-shadow: 0 15px 25px -8px rgba(90, 58, 255, 0.6);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      opacity: 0;
+      animation: subReveal 1s ease forwards;
+      animation-delay: 1.8s;
+      transition: transform 0.2s ease;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .final-cta:active { transform: scale(0.96); }
+
+    /* ====== MAIN CONTENT ====== */
+    .main-content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 1.5rem;
+      text-align: center;
+      gap: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .main-content::-webkit-scrollbar { display: none; }
+
+    .main-content.active { opacity: 1; visibility: visible; }
+
+    .welcome-card {
+      background: rgba(20, 18, 35, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 2.5rem;
+      padding: 2.2rem 1.8rem;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid rgba(160, 130, 255, 0.3);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(180, 140, 255, 0.1) inset;
+      animation: cardIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      margin: auto;
+    }
+
+    @keyframes cardIn {
+      0% { opacity: 0; transform: scale(0.9) translateY(30px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .welcome-card h2 {
+      font-size: clamp(1.15rem, 4.8vw, 1.5rem);
+      font-weight: 800;
+      color: white;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      background: linear-gradient(to right, #ffffff, #cbbaff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+    }
+
+    .welcome-card p {
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      color: #b0a8d0;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-button {
+      background: linear-gradient(145deg, #7b5aff, #5a3aff);
+      border: none;
+      border-radius: 3rem;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      color: white;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 15px 25px -8px rgba(90, 58, 255, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      transition: all 0.2s ease;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: clamp(0.95rem, 4.2vw, 1.15rem);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .cta-button:active {
+      transform: scale(0.96);
+      box-shadow: 0 8px 15px -5px rgba(90, 58, 255, 0.8);
+    }
+
+    /* ====== APPS OPTIONS ====== */
+    .apps-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.5s ease 0.1s,
+                  margin-top 0.5s ease;
+    }
+
+    .apps-options.visible {
+      max-height: 800px;
+      opacity: 1;
+      margin-top: 1.2rem;
+    }
+
+    .app-option {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.7rem 1rem;
+      border-radius: 1.2rem;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(15px) scale(0.95);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .apps-options.visible .app-option {
+      animation: optionIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .apps-options.visible .app-option:nth-child(1) { animation-delay: 0.15s; }
+    .apps-options.visible .app-option:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes optionIn {
+      0% { opacity: 0; transform: translateY(15px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .app-option:active {
+      transform: scale(0.97);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .app-option-logo {
+      width: 60px; height: 60px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .app-option-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .app-option-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+    }
+
+    .app-option-name {
+      font-size: clamp(0.85rem, 3.6vw, 1rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .app-option-desc {
+      font-size: clamp(0.65rem, 2.8vw, 0.78rem);
+      color: #a89cd0;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .app-option-arrow {
+      flex-shrink: 0;
+      color: #7b5aff;
+      font-size: 1.3rem;
+      font-weight: 900;
+      transition: transform 0.2s ease;
+    }
+
+    .app-option:active .app-option-arrow { transform: translateX(3px); }
+
+    /* ====== SUB-OPCIONES DE STELLA ====== */
+    .stella-suboptions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.4s ease 0.1s,
+                  margin-top 0.4s ease;
+    }
+
+    .stella-suboptions.visible {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 0.6rem;
+    }
+
+    .sub-option {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      background: linear-gradient(145deg, rgba(142,45,226,0.15), rgba(74,0,224,0.1));
+      border: 1px solid rgba(142,45,226,0.4);
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: subOptionIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .stella-suboptions.visible .sub-option:nth-child(1) { animation-delay: 0.1s; }
+    .stella-suboptions.visible .sub-option:nth-child(2) { animation-delay: 0.22s; }
+
+    @keyframes subOptionIn {
+      0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .sub-option:active {
+      transform: scale(0.97);
+      background: linear-gradient(145deg, rgba(142,45,226,0.3), rgba(74,0,224,0.2));
+    }
+
+    .sub-option-icon {
+      width: 44px; height: 44px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .sub-option-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      min-width: 0;
+    }
+
+    .sub-option-title {
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .sub-option-desc {
+      font-size: clamp(0.62rem, 2.6vw, 0.75rem);
+      color: #c4b8e8;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sub-option-arrow {
+      flex-shrink: 0;
+      color: #b8a6ff;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    /* ====== MODAL DEL VIDEO ====== */
+    .video-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 100;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+
+    .video-modal.active { opacity: 1; visibility: visible; }
+
+    .video-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1rem;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+      padding-top: calc(0.7rem + env(safe-area-inset-top));
+    }
+
+    .video-modal-title {
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .video-modal-title span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #ff3b3b;
+      box-shadow: 0 0 10px #ff3b3b;
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .video-modal-close {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.2s ease;
+      line-height: 1;
+    }
+
+    .video-modal-close:active { background: rgba(255,255,255,0.25); }
+
+    .video-modal-body {
+      flex: 1;
+      position: relative;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .video-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-modal-footer {
+      flex-shrink: 0;
+      padding: 1rem;
+      background: linear-gradient(180deg, rgba(0,0,0,0.6), #000);
+      text-align: center;
+      padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .video-modal-footer .promo-text {
+      font-size: clamp(0.85rem, 3.8vw, 1.05rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 1.35;
+      background: linear-gradient(90deg, #ffd700, #ffb347, #ffd700);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shineText 2.5s linear infinite;
+      filter: drop-shadow(0 0 12px rgba(255, 179, 71, 0.5));
+    }
+
+    .qr-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 0.55rem 1.1rem;
+      border-radius: 3rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(230, 220, 255, 0.9);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 15;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .qr-badge svg {
+      width: 16px; height: 16px;
+      fill: none;
+      stroke: #b8a6ff;
+      stroke-width: 1.8;
+    }
+
+    @media (max-height: 700px) {
+      .welcome-card { padding: 1.6rem 1.3rem; }
+      .intro-text { font-size: clamp(1.5rem, 7vw, 2.2rem); }
+      .sports-list { gap: 0.4rem; }
+      .sport-item { padding: 0.4rem 0.9rem; font-size: clamp(0.8rem, 3.8vw, 1rem); }
+      .sport-logo { width: 34px; height: 34px; }
+      .platform-logo { width: 48px; height: 48px; }
+      .platform-item { padding: 0.6rem 0.4rem; }
+      .app-option-logo { width: 50px; height: 50px; }
+      .sub-option-icon { width: 38px; height: 38px; font-size: 1.2rem; }
+      .apps-options.visible { max-height: 700px; }
+      .promo-image-wrap { max-height: 65vh; }
+    }
+
+    ::selection { background: transparent; }
+  </style>
 </head>
 <body>
+  <div class="app">
+    <div class="glow"></div>
 
-    <!-- Esta es la ventana emergente -->
-    <div class="modal-overlay" id="miModal">
-        <div class="modal-content">
-            <h1>¡Bienvenido a PanaxStreaming!</h1>
-            <p>
-                LISTO PARA DISFRUTAR EL MEJOR CONTENIDO DE TV EN VIVO, DEPORTES Y SERIES.<br><br>
-                ¡SI SÍ! DALE AL BOTÓN DE DESCARGAR Y DISFRUTA EN TU TELÉFONO DE TODO EL CONTENIDO DE PANAXTREAMING.
-            </p>
-            <!-- Aquí pones el enlace real a tu APK o App Store -->
-            <a href="AQUI_VA_EL_ENLACE_DE_DESCARGA" class="btn-download" download>
-                DESCARGAR AHORA
-            </a>
+    <!-- ====== INTRO SCREEN ====== -->
+    <div class="intro-screen" id="introScreen">
+      <div class="intro-first" id="introFirst">
+        <div class="intro-text" id="introText">
+          Estas a un click de tener todo el entretenimiento
         </div>
+        <div class="intro-sub" id="introSub">✨ prepárate ✨</div>
+      </div>
     </div>
 
-    <script>
-        // Script simple para asegurar que la ventana se vea al cargar
-        document.addEventListener('DOMContentLoaded', function() {
-            // Si quisieras cerrar la ventana al hacer clic fuera, podrías añadir código aquí,
-            // pero para tu caso, queremos que se vea siempre.
-            console.log("Ventana de bienvenida cargada");
-        });
-    </script>
+    <!-- ====== SPORTS SCREEN ====== -->
+    <div class="sports-screen" id="sportsScreen">
+      <div class="sports-title">
+        <span>⚽</span> DEPORTES EN VIVO <span>⚽</span>
+      </div>
+      <div class="sports-list" id="sportsList"></div>
+    </div>
 
+    <!-- ====== PROMO MODAL (Ventana emergente) ====== -->
+    <div class="promo-modal" id="promoModal">
+      <div class="promo-modal-title">✨ Lo que puedes obtener ✨</div>
+      <div class="promo-image-wrap">
+        <img src="https://i.pinimg.com/736x/95/ac/3e/95ac3e1214a1ea9d27c47e538a2928b8.jpg" alt="Todo lo que puedes obtener" />
+      </div>
+      <div class="promo-progress">
+        <div class="promo-progress-bar"></div>
+      </div>
+      <button class="promo-close-btn" id="promoCloseBtn">Continuar →</button>
+    </div>
+
+    <!-- ====== STREAMING SCREEN ====== -->
+    <div class="streaming-screen" id="streamingScreen">
+      <div class="streaming-title">
+        Las <em>películas y series</em> que buscas en
+      </div>
+      <div class="platforms" id="platformsList"></div>
+    </div>
+
+    <!-- ====== FINAL SCREEN ====== -->
+    <div class="final-screen" id="finalScreen">
+      <div class="final-badge">🎬 + 15 MIL TÍTULOS</div>
+      <div class="final-number">+15,000</div>
+      <div class="final-text">películas y series<br>en tu teléfono</div>
+      <div class="final-devices">
+        <span>📱 Smartphone</span>
+        <span>📺 Smart TV</span>
+        <span>🔥 Fire TV</span>
+        <span>💻 Tablet</span>
+      </div>
+      <button class="final-cta" id="finalBtn">Comenzar ahora</button>
+    </div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content" id="mainContent">
+      <div class="welcome-card" id="welcomeCard">
+        <h2>¡Vamos a descargar para probar gratis el servicio!</h2>
+        <p>Selecciona una opción y disfruta de todo el contenido.</p>
+        <button class="cta-button" id="startBtn">Lo quiero! 🔥</button>
+
+        <div class="apps-options" id="appsOptions">
+          <div class="app-option" id="stellaOption">
+            <div class="app-option-logo">
+              <img src="https://i.pinimg.com/736x/e0/1a/88/e01a88fd1564e7be5c502ac24096ed8d.jpg" alt="Stella TV" loading="eager" />
+            </div>
+            <div class="app-option-info">
+              <div class="app-option-name">STELLA TV</div>
+              <div class="app-option-desc">Nueva experiencia cinematográfica</div>
+            </div>
+            <div class="app-option-arrow">→</div>
+          </div>
+
+          <div class="stella-suboptions" id="stellaSuboptions">
+            <div class="sub-option" id="tvSubOption">
+              <div class="sub-option-icon">📺</div>
+              <div class="sub-option-info">
+                <div class="sub-option-title">TV / Televisor</div>
+                <div class="sub-option-desc">Ver video tutorial de instalación</div>
+              </div>
+              <div class="sub-option-arrow">▶</div>
+            </div>
+
+            <div class="sub-option" id="phoneSubOption">
+              <div class="sub-option-icon">📱</div>
+              <div class="sub-option-info">
+                <div class="sub-option-title">Teléfono</div>
+                <div class="sub-option-desc">Descarga directa en tu móvil</div>
+              </div>
+              <div class="sub-option-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="app-option" id="panaxOption">
+            <div class="app-option-logo">
+              <img src="https://i.pinimg.com/736x/6b/18/2a/6b182a1f50cc85246f0237807269b714.jpg" alt="PanaxTreaming" loading="eager" />
+            </div>
+            <div class="app-option-info">
+              <div class="app-option-name">PANAXTREAMING</div>
+              <div class="app-option-desc">Todo el entretenimiento</div>
+            </div>
+            <div class="app-option-arrow">→</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-badge" style="opacity:0; visibility:hidden;" id="qrBadge">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
+        <line x1="12" y1="12" x2="12" y2="12.01" stroke-width="2" />
+      </svg>
+      <span>Escaneado desde QR</span>
+    </div>
+  </div>
+
+  <!-- ====== MODAL DEL VIDEO ====== -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-header">
+      <div class="video-modal-title">
+        <span></span> Instalación Stella TV
+      </div>
+      <button class="video-modal-close" id="videoModalClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="video-modal-body">
+      <div id="videoContainer" style="width:100%;height:100%;"></div>
+    </div>
+    <div class="video-modal-footer">
+      <div class="promo-text">✨ Al instalar pide tu PRUEBA GRATIS ✨</div>
+    </div>
+  </div>
+
+  <!-- ====== LOGOS SVG ====== -->
+  <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="logo-espn" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#000"/>
+      <text x="50" y="55" font-family="Arial Black, Arial, sans-serif" font-size="30" font-weight="900" fill="#fff" text-anchor="middle" letter-spacing="1">ESPN</text>
+      <rect x="20" y="66" width="60" height="3" fill="#e50914"/>
+    </symbol>
+    <symbol id="logo-directv" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#001a4d"/>
+      <text x="50" y="38" font-family="Arial, sans-serif" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" letter-spacing="0.5">DIRECTV</text>
+      <text x="50" y="60" font-family="Arial, sans-serif" font-size="14" font-weight="900" fill="#00b4ff" text-anchor="middle" letter-spacing="0.5">SPORTS</text>
+      <rect x="20" y="70" width="60" height="2" fill="#00b4ff"/>
+    </symbol>
+    <symbol id="logo-netflix" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#000"/>
+      <path fill="#e50914" d="M28 14 L28 86 L38 86 L38 14 Z M48 14 L48 86 L58 86 L58 14 Z M68 14 L68 86 L78 86 L78 14 Z"/>
+    </symbol>
+    <symbol id="logo-disney" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#040714"/>
+      <text x="50" y="42" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="#fff" text-anchor="middle" letter-spacing="1">Disney</text>
+      <text x="50" y="64" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#4fc3f7" text-anchor="middle">+</text>
+      <path d="M68 40 Q76 40 76 48 Q76 56 68 56" fill="none" stroke="#4fc3f7" stroke-width="4"/>
+    </symbol>
+    <symbol id="logo-prime" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#00a8e1"/>
+      <path fill="#fff" d="M20 55 Q35 70 55 70 Q75 70 88 55 Q70 62 55 62 Q40 62 20 55 Z"/>
+      <text x="50" y="42" font-family="Arial, sans-serif" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">prime</text>
+      <text x="50" y="56" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="1">video</text>
+    </symbol>
+    <symbol id="logo-max" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#000"/>
+      <text x="50" y="58" font-family="Arial Black, Arial, sans-serif" font-size="32" font-weight="900" fill="#fff" text-anchor="middle" letter-spacing="-1">max</text>
+      <circle cx="24" cy="50" r="3" fill="#7b2fff"/>
+      <circle cx="76" cy="50" r="3" fill="#7b2fff"/>
+    </symbol>
+    <symbol id="logo-paramount" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#0064ff"/>
+      <path fill="#fff" d="M50 18 L58 38 L80 38 L62 52 L68 72 L50 60 L32 72 L38 52 L20 38 L42 38 Z"/>
+      <text x="50" y="90" font-family="Arial, sans-serif" font-size="12" font-weight="900" fill="#fff" text-anchor="middle" letter-spacing="0.5">+</text>
+    </symbol>
+    <symbol id="logo-universal" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#000"/>
+      <circle cx="50" cy="50" r="32" fill="none" stroke="#fff" stroke-width="2"/>
+      <ellipse cx="50" cy="50" rx="32" ry="12" fill="none" stroke="#fff" stroke-width="2"/>
+      <ellipse cx="50" cy="50" rx="12" ry="32" fill="none" stroke="#fff" stroke-width="2"/>
+      <text x="50" y="24" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">UNIVERSAL</text>
+      <text x="50" y="92" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">STUDIOS</text>
+    </symbol>
+    <symbol id="logo-crunchyroll" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#f47521"/>
+      <path fill="#fff" d="M30 30 L30 70 L45 70 L45 30 Z"/>
+      <circle cx="65" cy="50" r="18" fill="none" stroke="#fff" stroke-width="6"/>
+      <circle cx="60" cy="50" r="3" fill="#fff"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function() {
+      document.addEventListener('DOMContentLoaded', function() {
+
+        const introScreen = document.getElementById('introScreen');
+        const introFirst = document.getElementById('introFirst');
+        const sportsScreen = document.getElementById('sportsScreen');
+        const sportsList = document.getElementById('sportsList');
+        const promoModal = document.getElementById('promoModal');
+        const promoCloseBtn = document.getElementById('promoCloseBtn');
+        const streamingScreen = document.getElementById('streamingScreen');
+        const platformsList = document.getElementById('platformsList');
+        const finalScreen = document.getElementById('finalScreen');
+        const finalBtn = document.getElementById('finalBtn');
+        const mainContent = document.getElementById('mainContent');
+        const welcomeCard = document.getElementById('welcomeCard');
+        const startBtn = document.getElementById('startBtn');
+        const appsOptions = document.getElementById('appsOptions');
+        const stellaOption = document.getElementById('stellaOption');
+        const stellaSuboptions = document.getElementById('stellaSuboptions');
+        const tvSubOption = document.getElementById('tvSubOption');
+        const phoneSubOption = document.getElementById('phoneSubOption');
+        const panaxOption = document.getElementById('panaxOption');
+        const qrBadge = document.getElementById('qrBadge');
+        const videoModal = document.getElementById('videoModal');
+        const videoModalClose = document.getElementById('videoModalClose');
+        const videoContainer = document.getElementById('videoContainer');
+
+        const YOUTUBE_SHORT_ID = 'SqGikopF3ug';
+        const PHONE_LINK = 'https://bit.ly/4bg5tgE';
+
+        let promoClosed = false;
+        let streamingShown = false;
+
+        // =============================================
+        // FASE 1: Frase inicial
+        // =============================================
+        setTimeout(() => {
+          introFirst.classList.add('fade-out');
+        }, 3500);
+
+        // =============================================
+        // FASE 2: Deportes en vivo
+        // =============================================
+        const sportsItems = [
+          { text: 'ESPN', logoId: 'logo-espn', highlight: true },
+          { text: 'DIRECTV SPORTS', logoId: 'logo-directv', highlight: true },
+          { text: 'LIGA ESPAÑOLA 🇪🇸', logoId: null, highlight: false, emoji: '⚽' },
+          { text: 'LIGA INGLESA 🏴󠁧󠁢󠁥󠁮󠁧󠁿', logoId: null, highlight: false, emoji: '⚽' },
+          { text: 'LIGA ITALIANA 🇮🇹', logoId: null, highlight: false, emoji: '⚽' },
+          { text: 'LIGA ALEMANA 🇩🇪', logoId: null, highlight: false, emoji: '⚽' },
+          { text: 'CHAMPIONS LEAGUE', logoId: null, highlight: true, emoji: '🏆' }
+        ];
+
+        function showSports() {
+          introScreen.classList.add('hidden');
+          sportsScreen.classList.add('active');
+          sportsList.innerHTML = '';
+          sportsItems.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'sport-item' + (item.highlight ? ' highlight' : '');
+            div.style.animationDelay = (index * 0.3) + 's';
+            if (item.logoId) {
+              div.innerHTML = `
+                <div class="sport-logo"><svg><use href="#${item.logoId}"/></svg></div>
+                <div class="sport-text">${item.text}</div>
+              `;
+            } else {
+              div.innerHTML = `
+                <div class="sport-logo" style="background:transparent;font-size:24px;">${item.emoji || '⚽'}</div>
+                <div class="sport-text">${item.text}</div>
+              `;
+            }
+            sportsList.appendChild(div);
+          });
+        }
+
+        setTimeout(showSports, 4000);
+
+        // =============================================
+        // FASE 2.5: Ventana emergente después de mostrar deportes
+        // =============================================
+        function showPromoModal() {
+          promoModal.classList.add('active');
+        }
+
+        function closePromoModal() {
+          if (promoClosed) return;
+          promoClosed = true;
+          promoModal.classList.remove('active');
+          // Justo después de cerrar la promo, mostrar streaming
+          setTimeout(() => {
+            if (!streamingShown) {
+              streamingShown = true;
+              sportsScreen.classList.remove('active');
+              streamingScreen.classList.add('active');
+              renderPlatforms();
+            }
+          }, 500);
+        }
+
+        // La promo aparece a los 12.5s (después de mostrar todos los deportes)
+        setTimeout(showPromoModal, 12500);
+
+        // Cierre manual con botón
+        promoCloseBtn.addEventListener('click', closePromoModal);
+
+        // Auto-cierre después de 8s (coincide con la barra de progreso)
+        setTimeout(() => {
+          if (!promoClosed) {
+            closePromoModal();
+          }
+        }, 21000);
+
+        // =============================================
+        // FASE 3: Streaming (se ejecuta al cerrar la promo)
+        // =============================================
+        const platforms = [
+          { name: 'Netflix', logoId: 'logo-netflix' },
+          { name: 'Disney+', logoId: 'logo-disney' },
+          { name: 'Prime Video', logoId: 'logo-prime' },
+          { name: 'Max', logoId: 'logo-max' },
+          { name: 'Paramount+', logoId: 'logo-paramount' },
+          { name: 'Universal', logoId: 'logo-universal' },
+          { name: 'Crunchyroll', logoId: 'logo-crunchyroll' }
+        ];
+
+        function renderPlatforms() {
+          platformsList.innerHTML = '';
+          platforms.forEach((p, index) => {
+            const div = document.createElement('div');
+            div.className = 'platform-item';
+            div.style.animationDelay = (index * 0.25) + 's';
+            div.innerHTML = `
+              <div class="platform-logo"><svg><use href="#${p.logoId}"/></svg></div>
+              <div class="platform-name">${p.name}</div>
+            `;
+            platformsList.appendChild(div);
+          });
+        }
+
+        // =============================================
+        // FASE 4: Final (7s después de mostrar streaming)
+        // =============================================
+        function showFinal() {
+          streamingScreen.classList.remove('active');
+          finalScreen.classList.add('active');
+        }
+
+        // Programamos la pantalla final tras 8s de haberse mostrado streaming
+        const checkStreamingAndFinal = setInterval(() => {
+          if (streamingShown) {
+            clearInterval(checkStreamingAndFinal);
+            setTimeout(showFinal, 8000);
+          }
+        }, 300);
+
+        // =============================================
+        // FASE 5: Main
+        // =============================================
+        function showMain() {
+          finalScreen.classList.remove('active');
+          mainContent.classList.add('active');
+          qrBadge.style.transition = 'opacity 1s ease, visibility 1s';
+          qrBadge.style.opacity = '1';
+          qrBadge.style.visibility = 'visible';
+        }
+
+        // Programamos Main 6s después de Final
+        const checkFinalAndMain = setInterval(() => {
+          if (finalScreen.classList.contains('active')) {
+            clearInterval(checkFinalAndMain);
+            setTimeout(showMain, 6000);
+          }
+        }, 300);
+
+        finalBtn.addEventListener('click', function() {
+          finalScreen.classList.remove('active');
+          mainContent.classList.add('active');
+          qrBadge.style.transition = 'opacity 1s ease, visibility 1s';
+          qrBadge.style.opacity = '1';
+          qrBadge.style.visibility = 'visible';
+        });
+
+        // Desplegar apps al pulsar "LO QUIERO!"
+        startBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          this.textContent = '¡Elige tu app! 👇';
+          this.style.background = 'linear-gradient(145deg, #4cd964, #30b34a)';
+          this.style.boxShadow = '0 15px 25px -8px #30b34a';
+          appsOptions.classList.add('visible');
+          welcomeCard.style.transform = 'scale(0.98)';
+          setTimeout(() => { welcomeCard.style.transform = 'scale(1)'; }, 200);
+        });
+
+        // STELLA TV: sub-opciones
+        stellaOption.addEventListener('click', function() {
+          this.style.background = 'linear-gradient(145deg, rgba(74,0,224,0.4), rgba(142,45,226,0.4))';
+          this.style.borderColor = 'rgba(142,45,226,0.7)';
+          stellaSuboptions.classList.toggle('visible');
+        });
+
+        // TV / Televisor → video modal
+        tvSubOption.addEventListener('click', function() {
+          videoContainer.innerHTML = `
+            <iframe
+              src="https://www.youtube.com/embed/${YOUTUBE_SHORT_ID}?autoplay=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${YOUTUBE_SHORT_ID}"
+              title="Instalación Stella TV"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              playsinline
+            ></iframe>
+          `;
+          videoModal.classList.add('active');
+        });
+
+        // Teléfono → link directo
+        phoneSubOption.addEventListener('click', function() {
+          window.open(PHONE_LINK, '_blank', 'noopener,noreferrer');
+        });
+
+        function closeVideoModal() {
+          videoModal.classList.remove('active');
+          setTimeout(() => { videoContainer.innerHTML = ''; }, 500);
+        }
+
+        videoModalClose.addEventListener('click', closeVideoModal);
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+            closeVideoModal();
+          }
+        });
+
+        panaxOption.addEventListener('click', function() {
+          this.style.background = 'linear-gradient(145deg, rgba(255,8,68,0.3), rgba(255,177,153,0.3))';
+          this.style.borderColor = 'rgba(255,8,68,0.7)';
+          setTimeout(() => {
+            alert('🚀 Abriendo PANAXTREAMING... ¡Disfruta del contenido!');
+          }, 150);
+        });
+
+        document.body.addEventListener('touchstart', function(e) {
+          if (e.target === document.body) e.preventDefault();
+        }, { passive: false });
+      });
+    })();
+  </script>
 </body>
 </html>
