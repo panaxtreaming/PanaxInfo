@@ -142,6 +142,7 @@
       background: #000;
       transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
       overflow: hidden;
+      box-sizing: border-box;
     }
 
     .intro-bg-image {
@@ -351,12 +352,14 @@
       justify-content: center;
       z-index: 25;
       padding: 1rem;
-      padding-bottom: 4.5rem;
+      padding-bottom: 5rem;
       text-align: center;
       background: rgba(8, 8, 16, 0.98);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.6s ease, visibility 0.6s;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .sports-screen.active { opacity: 1; visibility: visible; }
@@ -372,6 +375,9 @@
       opacity: 0;
       animation: fadeInScale 0.8s ease forwards;
       flex-shrink: 0;
+      align-self: center;
+      text-align: center;
+      width: 100%;
     }
 
     .sports-title span { color: #ff3b3b; }
@@ -383,6 +389,8 @@
       gap: 0.5rem;
       width: 100%;
       max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
       overflow-y: auto;
       padding: 0.2rem;
       -webkit-overflow-scrolling: touch;
@@ -463,10 +471,12 @@
       align-items: center;
       justify-content: center;
       padding: 1.2rem;
-      padding-bottom: 4.5rem;
+      padding-bottom: 5rem;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.6s ease, visibility 0.6s;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .promo-modal.active { opacity: 1; visibility: visible; }
@@ -476,6 +486,8 @@
       width: 100%;
       max-width: 420px;
       margin-bottom: 0.9rem;
+      margin-left: auto;
+      margin-right: auto;
       padding: 0.75rem 1rem;
       border-radius: 1rem;
       background: linear-gradient(90deg, #ff0844, #ff5e5e, #ffb347, #ff0844);
@@ -490,6 +502,7 @@
       justify-content: center;
       gap: 0.5rem;
       overflow: hidden;
+      align-self: center;
     }
 
     @keyframes bannerGradient {
@@ -567,6 +580,8 @@
       background-clip: text;
       animation: shineText 2.5s linear infinite;
       filter: drop-shadow(0 0 15px rgba(255, 179, 71, 0.5));
+      align-self: center;
+      width: 100%;
     }
 
     @keyframes shineText {
@@ -578,6 +593,8 @@
       width: 100%;
       max-width: 420px;
       max-height: 62vh;
+      margin-left: auto;
+      margin-right: auto;
       border-radius: 1.2rem;
       overflow: hidden;
       box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(180, 140, 255, 0.2);
@@ -585,6 +602,7 @@
       opacity: 0;
       transform: scale(0.9);
       animation: promoImageIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.35s;
+      align-self: center;
     }
 
     @keyframes promoImageIn {
@@ -617,6 +635,10 @@
       animation: fadeInScale 0.6s ease forwards 0.7s;
       transition: transform 0.2s ease;
       -webkit-tap-highlight-color: transparent;
+      align-self: center;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
     }
 
     .promo-close-btn:active { transform: scale(0.95); }
@@ -629,8 +651,11 @@
       border-radius: 4px;
       overflow: hidden;
       margin-top: 0.9rem;
+      margin-left: auto;
+      margin-right: auto;
       opacity: 0;
       animation: fadeInScale 0.5s ease forwards 0.5s;
+      align-self: center;
     }
 
     .promo-progress-bar {
@@ -657,12 +682,14 @@
       justify-content: center;
       z-index: 25;
       padding: 1.2rem;
-      padding-bottom: 4.5rem;
+      padding-bottom: 5rem;
       text-align: center;
       background: rgba(8, 8, 16, 0.98);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.6s ease, visibility 0.6s;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .streaming-screen.active { opacity: 1; visibility: visible; }
@@ -677,6 +704,9 @@
       opacity: 0;
       animation: fadeInScale 0.8s ease forwards;
       flex-shrink: 0;
+      align-self: center;
+      text-align: center;
+      width: 100%;
     }
 
     .streaming-title em {
@@ -694,6 +724,8 @@
       width: 100%;
       max-width: 400px;
       max-height: 68vh;
+      margin-left: auto;
+      margin-right: auto;
       overflow-y: auto;
       padding: 0.3rem;
       -webkit-overflow-scrolling: touch;
@@ -748,123 +780,6 @@
       line-height: 1.15;
     }
 
-    /* ====== FINAL SCREEN ====== */
-    .final-screen {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 25;
-      padding: 1.5rem;
-      padding-bottom: 4.5rem;
-      text-align: center;
-      background: radial-gradient(circle at 50% 40%, #1a0f2e, #08060f);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.8s ease, visibility 0.8s;
-    }
-
-    .final-screen.active { opacity: 1; visibility: visible; }
-
-    .final-badge {
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #ffb347;
-      padding: 0.4rem 1rem;
-      border: 1px solid rgba(255, 179, 71, 0.4);
-      border-radius: 2rem;
-      margin-bottom: 1.5rem;
-      background: rgba(255, 179, 71, 0.08);
-      opacity: 0;
-      animation: fadeInScale 0.8s ease forwards;
-    }
-
-    .final-number {
-      font-size: clamp(3rem, 16vw, 5.5rem);
-      font-weight: 900;
-      line-height: 1;
-      background: linear-gradient(135deg, #fff, #a78bff 70%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 30px rgba(140, 100, 255, 0.7));
-      opacity: 0;
-      animation: numberPop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      animation-delay: 0.3s;
-    }
-
-    @keyframes numberPop {
-      0% { opacity: 0; transform: scale(0.3) rotate(-8deg); filter: blur(10px); }
-      60% { opacity: 1; transform: scale(1.1) rotate(2deg); filter: blur(0); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
-    }
-
-    .final-text {
-      font-size: clamp(1rem, 4.5vw, 1.5rem);
-      font-weight: 700;
-      color: #fff;
-      margin-top: 0.8rem;
-      line-height: 1.4;
-      max-width: 90%;
-      opacity: 0;
-      animation: subReveal 1s ease forwards;
-      animation-delay: 1s;
-    }
-
-    .final-devices {
-      font-size: clamp(0.8rem, 3.5vw, 1rem);
-      font-weight: 500;
-      color: #b8a6ff;
-      margin-top: 1.2rem;
-      letter-spacing: 0.04em;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      opacity: 0;
-      animation: subReveal 1s ease forwards;
-      animation-delay: 1.4s;
-      max-width: 90%;
-    }
-
-    .final-devices span {
-      background: rgba(255, 255, 255, 0.06);
-      padding: 0.4rem 0.9rem;
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-weight: 600;
-      color: #e0d6ff;
-      font-size: clamp(0.7rem, 3vw, 0.9rem);
-    }
-
-    .final-cta {
-      margin-top: 2rem;
-      font-size: clamp(0.9rem, 3.8vw, 1.1rem);
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(145deg, #7b5aff, #5a3aff);
-      padding: 1rem 2rem;
-      border-radius: 3rem;
-      box-shadow: 0 15px 25px -8px rgba(90, 58, 255, 0.6);
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      max-width: 300px;
-      opacity: 0;
-      animation: subReveal 1s ease forwards;
-      animation-delay: 1.8s;
-      transition: transform 0.2s ease;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .final-cta:active { transform: scale(0.96); }
-
     /* ====== MAIN CONTENT ====== */
     .main-content {
       position: relative;
@@ -876,7 +791,7 @@
       width: 100%;
       height: 100%;
       padding: 1.5rem;
-      padding-bottom: 4.5rem;
+      padding-bottom: 5rem;
       text-align: center;
       gap: 1rem;
       opacity: 0;
@@ -885,6 +800,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      box-sizing: border-box;
     }
 
     .main-content::-webkit-scrollbar { display: none; }
@@ -1130,7 +1046,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.05em;
       border: 1px solid rgba(255,255,255,0.1);
     }
 
@@ -1297,6 +1216,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.4s ease, visibility 0.4s;
+      box-sizing: border-box;
     }
 
     .venezolano-modal.active {
@@ -1429,7 +1349,7 @@
       .platform-logo { width: 46px; height: 46px; }
       .platform-item { padding: 0.55rem 0.35rem; }
       .app-option-logo { width: 50px; height: 50px; }
-      .sub-option-icon { width: 38px; height: 38px; font-size: 1.2rem; }
+      .sub-option-icon { width: 38px; height: 38px; font-size: 0.65rem; }
       .apps-options.visible { max-height: 700px; }
       .promo-image-wrap { max-height: 52vh; }
       .promo-image-wrap img { max-height: 52vh; }
@@ -1503,20 +1423,6 @@
         Las <em>peliculas y series</em> que buscas en
       </div>
       <div class="platforms" id="platformsList"></div>
-    </div>
-
-    <!-- ====== FINAL SCREEN ====== -->
-    <div class="final-screen" id="finalScreen">
-      <div class="final-badge">+ 15 MIL TITULOS</div>
-      <div class="final-number">+15,000</div>
-      <div class="final-text">peliculas y series<br>en tu telefono</div>
-      <div class="final-devices">
-        <span>Smartphone</span>
-        <span>Smart TV</span>
-        <span>Fire TV</span>
-        <span>Tablet</span>
-      </div>
-      <button class="final-cta" id="finalBtn">Comenzar ahora</button>
     </div>
 
     <!-- ====== MAIN CONTENT ====== -->
@@ -1690,8 +1596,6 @@
         const promoCloseBtn = document.getElementById('promoCloseBtn');
         const streamingScreen = document.getElementById('streamingScreen');
         const platformsList = document.getElementById('platformsList');
-        const finalScreen = document.getElementById('finalScreen');
-        const finalBtn = document.getElementById('finalBtn');
         const mainContent = document.getElementById('mainContent');
         const welcomeCard = document.getElementById('welcomeCard');
         const startBtn = document.getElementById('startBtn');
@@ -1861,36 +1765,20 @@
           });
         }
 
-        // FASE G: Final
-        function showFinal() {
-          streamingScreen.classList.remove('active');
-          finalScreen.classList.add('active');
-        }
-
-        const checkStreamingAndFinal = setInterval(() => {
-          if (streamingShown) {
-            clearInterval(checkStreamingAndFinal);
-            setTimeout(showFinal, 8000);
-          }
-        }, 300);
-
-        // FASE H: Main
+        // =============================================
+        // FASE G: Main (directamente desde streaming)
+        // =============================================
         function showMain() {
-          finalScreen.classList.remove('active');
+          streamingScreen.classList.remove('active');
           mainContent.classList.add('active');
         }
 
-        const checkFinalAndMain = setInterval(() => {
-          if (finalScreen.classList.contains('active')) {
-            clearInterval(checkFinalAndMain);
-            setTimeout(showMain, 6000);
+        const checkStreamingAndMain = setInterval(() => {
+          if (streamingShown) {
+            clearInterval(checkStreamingAndMain);
+            setTimeout(showMain, 8000);
           }
         }, 300);
-
-        finalBtn.addEventListener('click', function() {
-          finalScreen.classList.remove('active');
-          mainContent.classList.add('active');
-        });
 
         startBtn.addEventListener('click', function(e) {
           e.preventDefault();
