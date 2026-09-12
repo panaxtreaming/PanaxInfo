@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Entretenimiento Total · Un click</title>
+  <title>Entretenimiento Total - Un click</title>
   <style>
     * {
       margin: 0;
@@ -55,7 +55,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* ====== INTRO SCREEN ====== */
     .intro-screen {
       position: absolute;
       top: 0; left: 0;
@@ -139,7 +138,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ====== SPORTS SCREEN ====== */
     .sports-screen {
       position: absolute;
       top: 0; left: 0;
@@ -247,7 +245,6 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* ====== PROMO MODAL (Ventana emergente después de deportes) ====== */
     .promo-modal {
       position: fixed;
       top: 0; left: 0;
@@ -284,7 +281,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: shineText 2.5s linear infinite;
       filter: drop-shadow(0 0 15px rgba(255, 179, 71, 0.5));
       opacity: 0;
       animation: fadeInScale 0.6s ease forwards 0.2s, shineText 2.5s linear infinite 0.2s;
@@ -369,7 +365,6 @@
       100% { width: 100%; }
     }
 
-    /* ====== STREAMING SCREEN ====== */
     .streaming-screen {
       position: absolute;
       top: 0; left: 0;
@@ -470,7 +465,6 @@
       line-height: 1.15;
     }
 
-    /* ====== FINAL SCREEN ====== */
     .final-screen {
       position: absolute;
       top: 0; left: 0;
@@ -586,7 +580,6 @@
 
     .final-cta:active { transform: scale(0.96); }
 
-    /* ====== MAIN CONTENT ====== */
     .main-content {
       position: relative;
       z-index: 10;
@@ -675,7 +668,6 @@
       box-shadow: 0 8px 15px -5px rgba(90, 58, 255, 0.8);
     }
 
-    /* ====== APPS OPTIONS ====== */
     .apps-options {
       display: flex;
       flex-direction: column;
@@ -789,7 +781,6 @@
 
     .app-option:active .app-option-arrow { transform: translateX(3px); }
 
-    /* ====== SUB-OPCIONES DE STELLA ====== */
     .stella-suboptions {
       display: flex;
       flex-direction: column;
@@ -887,7 +878,6 @@
       font-weight: 900;
     }
 
-    /* ====== MODAL DEL VIDEO ====== */
     .video-modal {
       position: fixed;
       top: 0; left: 0;
@@ -1052,64 +1042,58 @@
   <div class="app">
     <div class="glow"></div>
 
-    <!-- ====== INTRO SCREEN ====== -->
     <div class="intro-screen" id="introScreen">
       <div class="intro-first" id="introFirst">
         <div class="intro-text" id="introText">
           Estas a un click de tener todo el entretenimiento
         </div>
-        <div class="intro-sub" id="introSub">✨ prepárate ✨</div>
+        <div class="intro-sub" id="introSub">preparate</div>
       </div>
     </div>
 
-    <!-- ====== SPORTS SCREEN ====== -->
     <div class="sports-screen" id="sportsScreen">
       <div class="sports-title">
-        <span>⚽</span> DEPORTES EN VIVO <span>⚽</span>
+        <span>&#9917;</span> DEPORTES EN VIVO <span>&#9917;</span>
       </div>
       <div class="sports-list" id="sportsList"></div>
     </div>
 
-    <!-- ====== PROMO MODAL (Ventana emergente) ====== -->
     <div class="promo-modal" id="promoModal">
-      <div class="promo-modal-title">✨ Lo que puedes obtener ✨</div>
+      <div class="promo-modal-title">Lo que puedes obtener</div>
       <div class="promo-image-wrap">
         <img src="https://i.pinimg.com/736x/95/ac/3e/95ac3e1214a1ea9d27c47e538a2928b8.jpg" alt="Todo lo que puedes obtener" />
       </div>
       <div class="promo-progress">
         <div class="promo-progress-bar"></div>
       </div>
-      <button class="promo-close-btn" id="promoCloseBtn">Continuar →</button>
+      <button class="promo-close-btn" id="promoCloseBtn">Continuar</button>
     </div>
 
-    <!-- ====== STREAMING SCREEN ====== -->
     <div class="streaming-screen" id="streamingScreen">
       <div class="streaming-title">
-        Las <em>películas y series</em> que buscas en
+        Las <em>peliculas y series</em> que buscas en
       </div>
       <div class="platforms" id="platformsList"></div>
     </div>
 
-    <!-- ====== FINAL SCREEN ====== -->
     <div class="final-screen" id="finalScreen">
-      <div class="final-badge">🎬 + 15 MIL TÍTULOS</div>
+      <div class="final-badge">+ 15 MIL TITULOS</div>
       <div class="final-number">+15,000</div>
-      <div class="final-text">películas y series<br>en tu teléfono</div>
+      <div class="final-text">peliculas y series<br>en tu telefono</div>
       <div class="final-devices">
-        <span>📱 Smartphone</span>
-        <span>📺 Smart TV</span>
-        <span>🔥 Fire TV</span>
-        <span>💻 Tablet</span>
+        <span>Smartphone</span>
+        <span>Smart TV</span>
+        <span>Fire TV</span>
+        <span>Tablet</span>
       </div>
       <button class="final-cta" id="finalBtn">Comenzar ahora</button>
     </div>
 
-    <!-- ====== MAIN CONTENT ====== -->
     <div class="main-content" id="mainContent">
       <div class="welcome-card" id="welcomeCard">
-        <h2>¡Vamos a descargar para probar gratis el servicio!</h2>
-        <p>Selecciona una opción y disfruta de todo el contenido.</p>
-        <button class="cta-button" id="startBtn">Lo quiero! 🔥</button>
+        <h2>Vamos a descargar para probar gratis el servicio!</h2>
+        <p>Selecciona una opcion y disfruta de todo el contenido.</p>
+        <button class="cta-button" id="startBtn">Lo quiero!</button>
 
         <div class="apps-options" id="appsOptions">
           <div class="app-option" id="stellaOption">
@@ -1118,28 +1102,28 @@
             </div>
             <div class="app-option-info">
               <div class="app-option-name">STELLA TV</div>
-              <div class="app-option-desc">Nueva experiencia cinematográfica</div>
+              <div class="app-option-desc">Nueva experiencia cinematografica</div>
             </div>
-            <div class="app-option-arrow">→</div>
+            <div class="app-option-arrow">&#8594;</div>
           </div>
 
           <div class="stella-suboptions" id="stellaSuboptions">
             <div class="sub-option" id="tvSubOption">
-              <div class="sub-option-icon">📺</div>
+              <div class="sub-option-icon">&#128250;</div>
               <div class="sub-option-info">
                 <div class="sub-option-title">TV / Televisor</div>
-                <div class="sub-option-desc">Ver video tutorial de instalación</div>
+                <div class="sub-option-desc">Ver video tutorial de instalacion</div>
               </div>
-              <div class="sub-option-arrow">▶</div>
+              <div class="sub-option-arrow">&#9654;</div>
             </div>
 
             <div class="sub-option" id="phoneSubOption">
-              <div class="sub-option-icon">📱</div>
+              <div class="sub-option-icon">&#128241;</div>
               <div class="sub-option-info">
-                <div class="sub-option-title">Teléfono</div>
-                <div class="sub-option-desc">Descarga directa en tu móvil</div>
+                <div class="sub-option-title">Telefono</div>
+                <div class="sub-option-desc">Descarga directa en tu movil</div>
               </div>
-              <div class="sub-option-arrow">→</div>
+              <div class="sub-option-arrow">&#8594;</div>
             </div>
           </div>
 
@@ -1151,7 +1135,7 @@
               <div class="app-option-name">PANAXTREAMING</div>
               <div class="app-option-desc">Todo el entretenimiento</div>
             </div>
-            <div class="app-option-arrow">→</div>
+            <div class="app-option-arrow">&#8594;</div>
           </div>
         </div>
       </div>
@@ -1169,23 +1153,21 @@
     </div>
   </div>
 
-  <!-- ====== MODAL DEL VIDEO ====== -->
   <div class="video-modal" id="videoModal">
     <div class="video-modal-header">
       <div class="video-modal-title">
-        <span></span> Instalación Stella TV
+        <span></span> Instalacion Stella TV
       </div>
-      <button class="video-modal-close" id="videoModalClose" aria-label="Cerrar">✕</button>
+      <button class="video-modal-close" id="videoModalClose" aria-label="Cerrar">&#10005;</button>
     </div>
     <div class="video-modal-body">
       <div id="videoContainer" style="width:100%;height:100%;"></div>
     </div>
     <div class="video-modal-footer">
-      <div class="promo-text">✨ Al instalar pide tu PRUEBA GRATIS ✨</div>
+      <div class="promo-text">Al instalar pide tu PRUEBA GRATIS</div>
     </div>
   </div>
 
-  <!-- ====== LOGOS SVG ====== -->
   <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
     <symbol id="logo-espn" viewBox="0 0 100 100">
       <rect width="100" height="100" fill="#000"/>
@@ -1245,74 +1227,66 @@
     (function() {
       document.addEventListener('DOMContentLoaded', function() {
 
-        const introScreen = document.getElementById('introScreen');
-        const introFirst = document.getElementById('introFirst');
-        const sportsScreen = document.getElementById('sportsScreen');
-        const sportsList = document.getElementById('sportsList');
-        const promoModal = document.getElementById('promoModal');
-        const promoCloseBtn = document.getElementById('promoCloseBtn');
-        const streamingScreen = document.getElementById('streamingScreen');
-        const platformsList = document.getElementById('platformsList');
-        const finalScreen = document.getElementById('finalScreen');
-        const finalBtn = document.getElementById('finalBtn');
-        const mainContent = document.getElementById('mainContent');
-        const welcomeCard = document.getElementById('welcomeCard');
-        const startBtn = document.getElementById('startBtn');
-        const appsOptions = document.getElementById('appsOptions');
-        const stellaOption = document.getElementById('stellaOption');
-        const stellaSuboptions = document.getElementById('stellaSuboptions');
-        const tvSubOption = document.getElementById('tvSubOption');
-        const phoneSubOption = document.getElementById('phoneSubOption');
-        const panaxOption = document.getElementById('panaxOption');
-        const qrBadge = document.getElementById('qrBadge');
-        const videoModal = document.getElementById('videoModal');
-        const videoModalClose = document.getElementById('videoModalClose');
-        const videoContainer = document.getElementById('videoContainer');
+        var introScreen = document.getElementById('introScreen');
+        var introFirst = document.getElementById('introFirst');
+        var sportsScreen = document.getElementById('sportsScreen');
+        var sportsList = document.getElementById('sportsList');
+        var promoModal = document.getElementById('promoModal');
+        var promoCloseBtn = document.getElementById('promoCloseBtn');
+        var streamingScreen = document.getElementById('streamingScreen');
+        var platformsList = document.getElementById('platformsList');
+        var finalScreen = document.getElementById('finalScreen');
+        var finalBtn = document.getElementById('finalBtn');
+        var mainContent = document.getElementById('mainContent');
+        var welcomeCard = document.getElementById('welcomeCard');
+        var startBtn = document.getElementById('startBtn');
+        var appsOptions = document.getElementById('appsOptions');
+        var stellaOption = document.getElementById('stellaOption');
+        var stellaSuboptions = document.getElementById('stellaSuboptions');
+        var tvSubOption = document.getElementById('tvSubOption');
+        var phoneSubOption = document.getElementById('phoneSubOption');
+        var panaxOption = document.getElementById('panaxOption');
+        var qrBadge = document.getElementById('qrBadge');
+        var videoModal = document.getElementById('videoModal');
+        var videoModalClose = document.getElementById('videoModalClose');
+        var videoContainer = document.getElementById('videoContainer');
 
-        const YOUTUBE_SHORT_ID = 'SqGikopF3ug';
-        const PHONE_LINK = 'https://bit.ly/4bg5tgE';
+        var YOUTUBE_SHORT_ID = 'SqGikopF3ug';
+        var PHONE_LINK = 'https://bit.ly/4bg5tgE';
 
-        let promoClosed = false;
-        let streamingShown = false;
+        var promoClosed = false;
+        var streamingShown = false;
 
-        // =============================================
-        // FASE 1: Frase inicial
-        // =============================================
-        setTimeout(() => {
+        setTimeout(function() {
           introFirst.classList.add('fade-out');
         }, 3500);
 
-        // =============================================
-        // FASE 2: Deportes en vivo
-        // =============================================
-        const sportsItems = [
+        var sportsItems = [
           { text: 'ESPN', logoId: 'logo-espn', highlight: true },
           { text: 'DIRECTV SPORTS', logoId: 'logo-directv', highlight: true },
-          { text: 'LIGA ESPAÑOLA 🇪🇸', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'LIGA INGLESA 🏴󠁧󠁢󠁥󠁮󠁧󠁿', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'LIGA ITALIANA 🇮🇹', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'LIGA ALEMANA 🇩🇪', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'CHAMPIONS LEAGUE', logoId: null, highlight: true, emoji: '🏆' }
+          { text: 'LIGA ESPANOLA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'LIGA INGLESA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'LIGA ITALIANA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'LIGA ALEMANA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'CHAMPIONS LEAGUE', logoId: null, highlight: true, emoji: '&#127942;' }
         ];
 
         function showSports() {
           introScreen.classList.add('hidden');
           sportsScreen.classList.add('active');
           sportsList.innerHTML = '';
-          sportsItems.forEach((item, index) => {
-            const div = document.createElement('div');
+          sportsItems.forEach(function(item, index) {
+            var div = document.createElement('div');
             div.className = 'sport-item' + (item.highlight ? ' highlight' : '');
             div.style.animationDelay = (index * 0.3) + 's';
             if (item.logoId) {
-              div.innerHTML = `
-                <div class="sport-logo"><svg><use href="#${item.logoId}"/></svg></div>
-                <div class="sport-text">${item.text}</div>
-              `;
+              div.innerHTML =
+                '<div class="sport-logo"><svg><use href="#' + item.logoId + '"/></svg></div>' +
+                '<div class="sport-text">' + item.text + '</div>';
             } else {
-              div.innerHTML = `
-                <div class="sport-logo" style="background:transparent;font-size:24px;">${item.emoji || '⚽'}</div>
-                <div class="sport-text">${item.text}</div>
-              `;
+              div.innerHTML =
+                '<div class="sport-logo" style="background:transparent;font-size:24px;">' + (item.emoji || '&#9917;') + '</div>' +
+                '<div class="sport-text">' + item.text + '</div>';
             }
             sportsList.appendChild(div);
           });
@@ -1320,9 +1294,6 @@
 
         setTimeout(showSports, 4000);
 
-        // =============================================
-        // FASE 2.5: Ventana emergente después de mostrar deportes
-        // =============================================
         function showPromoModal() {
           promoModal.classList.add('active');
         }
@@ -1331,8 +1302,7 @@
           if (promoClosed) return;
           promoClosed = true;
           promoModal.classList.remove('active');
-          // Justo después de cerrar la promo, mostrar streaming
-          setTimeout(() => {
+          setTimeout(function() {
             if (!streamingShown) {
               streamingShown = true;
               sportsScreen.classList.remove('active');
@@ -1342,23 +1312,17 @@
           }, 500);
         }
 
-        // La promo aparece a los 12.5s (después de mostrar todos los deportes)
         setTimeout(showPromoModal, 12500);
 
-        // Cierre manual con botón
         promoCloseBtn.addEventListener('click', closePromoModal);
 
-        // Auto-cierre después de 8s (coincide con la barra de progreso)
-        setTimeout(() => {
+        setTimeout(function() {
           if (!promoClosed) {
             closePromoModal();
           }
         }, 21000);
 
-        // =============================================
-        // FASE 3: Streaming (se ejecuta al cerrar la promo)
-        // =============================================
-        const platforms = [
+        var platforms = [
           { name: 'Netflix', logoId: 'logo-netflix' },
           { name: 'Disney+', logoId: 'logo-disney' },
           { name: 'Prime Video', logoId: 'logo-prime' },
@@ -1370,37 +1334,29 @@
 
         function renderPlatforms() {
           platformsList.innerHTML = '';
-          platforms.forEach((p, index) => {
-            const div = document.createElement('div');
+          platforms.forEach(function(p, index) {
+            var div = document.createElement('div');
             div.className = 'platform-item';
             div.style.animationDelay = (index * 0.25) + 's';
-            div.innerHTML = `
-              <div class="platform-logo"><svg><use href="#${p.logoId}"/></svg></div>
-              <div class="platform-name">${p.name}</div>
-            `;
+            div.innerHTML =
+              '<div class="platform-logo"><svg><use href="#' + p.logoId + '"/></svg></div>' +
+              '<div class="platform-name">' + p.name + '</div>';
             platformsList.appendChild(div);
           });
         }
 
-        // =============================================
-        // FASE 4: Final (7s después de mostrar streaming)
-        // =============================================
         function showFinal() {
           streamingScreen.classList.remove('active');
           finalScreen.classList.add('active');
         }
 
-        // Programamos la pantalla final tras 8s de haberse mostrado streaming
-        const checkStreamingAndFinal = setInterval(() => {
+        var checkStreamingAndFinal = setInterval(function() {
           if (streamingShown) {
             clearInterval(checkStreamingAndFinal);
             setTimeout(showFinal, 8000);
           }
         }, 300);
 
-        // =============================================
-        // FASE 5: Main
-        // =============================================
         function showMain() {
           finalScreen.classList.remove('active');
           mainContent.classList.add('active');
@@ -1409,8 +1365,7 @@
           qrBadge.style.visibility = 'visible';
         }
 
-        // Programamos Main 6s después de Final
-        const checkFinalAndMain = setInterval(() => {
+        var checkFinalAndMain = setInterval(function() {
           if (finalScreen.classList.contains('active')) {
             clearInterval(checkFinalAndMain);
             setTimeout(showMain, 6000);
@@ -1425,46 +1380,41 @@
           qrBadge.style.visibility = 'visible';
         });
 
-        // Desplegar apps al pulsar "LO QUIERO!"
         startBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          this.textContent = '¡Elige tu app! 👇';
+          this.textContent = 'Elige tu app!';
           this.style.background = 'linear-gradient(145deg, #4cd964, #30b34a)';
           this.style.boxShadow = '0 15px 25px -8px #30b34a';
           appsOptions.classList.add('visible');
           welcomeCard.style.transform = 'scale(0.98)';
-          setTimeout(() => { welcomeCard.style.transform = 'scale(1)'; }, 200);
+          setTimeout(function() { welcomeCard.style.transform = 'scale(1)'; }, 200);
         });
 
-        // STELLA TV: sub-opciones
         stellaOption.addEventListener('click', function() {
           this.style.background = 'linear-gradient(145deg, rgba(74,0,224,0.4), rgba(142,45,226,0.4))';
           this.style.borderColor = 'rgba(142,45,226,0.7)';
           stellaSuboptions.classList.toggle('visible');
         });
 
-        // TV / Televisor → video modal
         tvSubOption.addEventListener('click', function() {
-          videoContainer.innerHTML = `
-            <iframe
-              src="https://www.youtube.com/embed/${YOUTUBE_SHORT_ID}?autoplay=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${YOUTUBE_SHORT_ID}"
-              title="Instalación Stella TV"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              playsinline
-            ></iframe>
-          `;
+          videoContainer.innerHTML =
+            '<iframe ' +
+              'src="https://www.youtube.com/embed/' + YOUTUBE_SHORT_ID + '?autoplay=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=' + YOUTUBE_SHORT_ID + '" ' +
+              'title="Instalacion Stella TV" ' +
+              'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+              'allowfullscreen ' +
+              'playsinline' +
+            '></iframe>';
           videoModal.classList.add('active');
         });
 
-        // Teléfono → link directo
         phoneSubOption.addEventListener('click', function() {
           window.open(PHONE_LINK, '_blank', 'noopener,noreferrer');
         });
 
         function closeVideoModal() {
           videoModal.classList.remove('active');
-          setTimeout(() => { videoContainer.innerHTML = ''; }, 500);
+          setTimeout(function() { videoContainer.innerHTML = ''; }, 500);
         }
 
         videoModalClose.addEventListener('click', closeVideoModal);
@@ -1477,8 +1427,8 @@
         panaxOption.addEventListener('click', function() {
           this.style.background = 'linear-gradient(145deg, rgba(255,8,68,0.3), rgba(255,177,153,0.3))';
           this.style.borderColor = 'rgba(255,8,68,0.7)';
-          setTimeout(() => {
-            alert('🚀 Abriendo PANAXTREAMING... ¡Disfruta del contenido!');
+          setTimeout(function() {
+            alert('Abriendo PANAXTREAMING... Disfruta del contenido!');
           }, 150);
         });
 
