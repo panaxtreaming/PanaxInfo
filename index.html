@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Entretenimiento Total · Un click</title>
+  <title>Entretenimiento Total - Un click</title>
   <style>
     * {
       margin: 0;
@@ -55,80 +55,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* ====== ENLACE PANA XTREAMING (FIJO EN TODAS LAS PANTALLAS) ====== */
-    .panax-link {
-      position: fixed;
-      bottom: calc(0.5rem + env(safe-area-inset-bottom));
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      background: rgba(20, 18, 35, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 8, 68, 0.4);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 8, 68, 0.15);
-      color: #fff;
-      font-size: clamp(0.7rem, 3vw, 0.85rem);
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      -webkit-tap-highlight-color: transparent;
-      white-space: nowrap;
-      pointer-events: auto;
-    }
-
-    .panax-link:active {
-      transform: translateX(-50%) scale(0.95);
-      background: rgba(255, 8, 68, 0.25);
-      border-color: rgba(255, 8, 68, 0.8);
-    }
-
-    .panax-link .link-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ff0844;
-      box-shadow: 0 0 8px #ff0844, 0 0 14px #ff0844;
-      animation: dotPulseLink 1.4s infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes dotPulseLink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.4); }
-    }
-
-    .panax-link .link-text {
-      color: #ffb199;
-      font-weight: 800;
-      background: linear-gradient(90deg, #ffb199, #ff5e5e, #ffb199);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shineTextLink 2.5s linear infinite;
-    }
-
-    @keyframes shineTextLink {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
-
-    /* Ocultar el enlace cuando el modal del video esté abierto */
-    body.video-open .panax-link {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.3s ease, visibility 0.3s;
-    }
-
-    /* ====== INTRO SCREEN CON IMAGEN DE FONDO ====== */
     .intro-screen {
       position: absolute;
       top: 0; left: 0;
@@ -140,43 +66,10 @@
       z-index: 30;
       padding: 1.5rem;
       text-align: center;
-      background: #000;
+      background: rgba(8, 8, 16, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
-      overflow: hidden;
-    }
-
-    .intro-bg-image {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center center;
-      z-index: 0;
-      opacity: 0;
-      animation: bgFadeIn 1.5s ease forwards;
-    }
-
-    @keyframes bgFadeIn {
-      0% { opacity: 0; transform: scale(1.05); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .intro-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-      background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.88) 0%,
-        rgba(0, 0, 0, 0.78) 22%,
-        rgba(0, 0, 0, 0.4) 38%,
-        rgba(0, 0, 0, 0.05) 52%,
-        rgba(0, 0, 0, 0.0) 62%,
-        rgba(0, 0, 0, 0.15) 82%,
-        rgba(0, 0, 0, 0.7) 100%
-      );
-      pointer-events: none;
     }
 
     .intro-screen.hidden {
@@ -186,17 +79,15 @@
     }
 
     .intro-first {
-      position: relative;
-      z-index: 2;
+      position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       transition: opacity 0.8s ease, transform 0.8s ease;
       padding: 1.5rem;
-      padding-top: 5vh;
     }
 
     .intro-first.fade-out {
@@ -205,143 +96,48 @@
       pointer-events: none;
     }
 
-    /* ====== FRASE LARGA CON EFECTO MÁQUINA DE ESCRIBIR ====== */
-    .intro-long-text {
-      font-size: clamp(1rem, 4.2vw, 1.5rem);
-      font-weight: 800;
-      line-height: 1.4;
-      letter-spacing: -0.01em;
-      max-width: 94%;
-      color: #ffffff;
-      text-align: center;
-      text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.95),
-        0 4px 20px rgba(0, 0, 0, 0.9),
-        0 0 30px rgba(140, 100, 255, 0.5);
-      padding: 0 0.4rem;
-      word-break: break-word;
-      position: absolute;
-      top: 6vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 94%;
-      min-height: 4rem;
-    }
-
-    .intro-long-text .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1em;
-      background: #ffffff;
-      margin-left: 2px;
-      vertical-align: text-bottom;
-      animation: blink 0.7s step-end infinite;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    .intro-long-text.fade-out-text {
-      animation: longTextOut 1s ease forwards;
-    }
-
-    @keyframes longTextOut {
-      0% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1) translateY(0);
-        filter: blur(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateX(-50%) scale(1.05) translateY(-15px);
-        filter: blur(6px);
-      }
-    }
-
-    /* ====== FRASE CORTA "ESTAS A UN CLICK..." ====== */
     .intro-text {
-      font-size: clamp(1.5rem, 6.5vw, 2.6rem);
+      font-size: clamp(1.8rem, 8vw, 3.2rem);
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.2;
       letter-spacing: -0.02em;
-      max-width: 92%;
-      color: #ffffff;
-      text-align: center;
-      text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.95),
-        0 4px 20px rgba(0, 0, 0, 0.9),
-        0 0 30px rgba(140, 100, 255, 0.6);
+      max-width: 90%;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: textReveal 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-delay: 0.3s;
       padding: 0 0.5rem;
       word-break: break-word;
-      position: absolute;
-      top: 10vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .intro-text.active {
-      visibility: visible;
-      animation: textReveal 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      background: linear-gradient(135deg, #fff 0%, #d4c4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(140, 100, 255, 0.6));
     }
 
     @keyframes textReveal {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) scale(0.85) translateY(20px);
-        filter: blur(8px);
-      }
+      0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(8px); }
       60% { opacity: 1; filter: blur(0); }
-      100% {
-        opacity: 1;
-        transform: translateX(-50%) scale(1) translateY(0);
-        filter: blur(0);
-      }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
     }
 
     .intro-sub {
-      font-size: clamp(0.95rem, 4vw, 1.35rem);
-      margin-top: 0.9rem;
-      font-weight: 600;
-      color: #ffffff;
+      font-size: clamp(1rem, 4.5vw, 1.5rem);
+      margin-top: 1.2rem;
+      font-weight: 400;
+      color: rgba(220, 210, 255, 0.9);
       letter-spacing: 0.04em;
-      max-width: 85%;
-      text-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.98),
-        0 4px 18px rgba(0, 0, 0, 0.9),
-        0 0 25px rgba(140, 100, 255, 0.5);
-      position: absolute;
-      top: 32vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
       opacity: 0;
-      visibility: hidden;
-    }
-
-    .intro-sub.active {
-      visibility: visible;
       animation: subReveal 1.2s ease-out forwards;
+      animation-delay: 1.2s;
+      max-width: 85%;
     }
 
     @keyframes subReveal {
-      0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(15px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ====== SPORTS SCREEN ====== */
     .sports-screen {
       position: absolute;
       top: 0; left: 0;
@@ -352,7 +148,6 @@
       justify-content: center;
       z-index: 25;
       padding: 1rem;
-      padding-bottom: 4.5rem;
       text-align: center;
       background: rgba(8, 8, 16, 0.98);
       opacity: 0;
@@ -450,7 +245,6 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* ====== PROMO MODAL ====== */
     .promo-modal {
       position: fixed;
       top: 0; left: 0;
@@ -464,93 +258,14 @@
       align-items: center;
       justify-content: center;
       padding: 1.2rem;
-      padding-bottom: 4.5rem;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.6s ease, visibility 0.6s;
     }
 
-    .promo-modal.active { opacity: 1; visibility: visible; }
-
-    .promo-banner {
-      position: relative;
-      width: 100%;
-      max-width: 420px;
-      margin-bottom: 0.9rem;
-      padding: 0.75rem 1rem;
-      border-radius: 1rem;
-      background: linear-gradient(90deg, #ff0844, #ff5e5e, #ffb347, #ff0844);
-      background-size: 300% auto;
-      animation: bannerGradient 4s linear infinite, bannerPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.15s;
-      box-shadow: 0 15px 35px -8px rgba(255, 8, 68, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-      text-align: center;
-      opacity: 0;
-      transform: scale(0.85) translateY(-10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      overflow: hidden;
-    }
-
-    @keyframes bannerGradient {
-      0% { background-position: 0% center; }
-      100% { background-position: 300% center; }
-    }
-
-    @keyframes bannerPop {
-      0% { opacity: 0; transform: scale(0.85) translateY(-10px); }
-      60% { opacity: 1; transform: scale(1.05) translateY(0); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    .promo-banner .banner-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 12px #fff, 0 0 24px #fff;
-      animation: dotPulse 1.4s infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes dotPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.5); }
-    }
-
-    .promo-banner .banner-text {
-      font-size: clamp(0.9rem, 4.2vw, 1.15rem);
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-      line-height: 1.2;
-    }
-
-    .promo-banner .banner-number {
-      font-size: clamp(1.1rem, 5vw, 1.4rem);
-      font-weight: 900;
-      color: #fff700;
-      text-shadow: 0 0 15px rgba(255, 247, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.6);
-      margin-right: 0.2rem;
-    }
-
-    .promo-banner::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -80%;
-      width: 60%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
-      transform: skewX(-20deg);
-      animation: bannerShine 2.8s infinite;
-    }
-
-    @keyframes bannerShine {
-      0% { left: -80%; }
-      60% { left: 130%; }
-      100% { left: 130%; }
+    .promo-modal.active {
+      opacity: 1;
+      visibility: visible;
     }
 
     .promo-modal-title {
@@ -566,8 +281,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: shineText 2.5s linear infinite;
       filter: drop-shadow(0 0 15px rgba(255, 179, 71, 0.5));
+      opacity: 0;
+      animation: fadeInScale 0.6s ease forwards 0.2s, shineText 2.5s linear infinite 0.2s;
     }
 
     @keyframes shineText {
@@ -578,7 +294,7 @@
     .promo-image-wrap {
       width: 100%;
       max-width: 420px;
-      max-height: 62vh;
+      max-height: 75vh;
       border-radius: 1.2rem;
       overflow: hidden;
       box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(180, 140, 255, 0.2);
@@ -598,16 +314,16 @@
       height: 100%;
       object-fit: contain;
       display: block;
-      max-height: 62vh;
+      max-height: 75vh;
     }
 
     .promo-close-btn {
-      margin-top: 1rem;
+      margin-top: 1.2rem;
       background: linear-gradient(145deg, #7b5aff, #5a3aff);
       color: #fff;
       border: none;
       border-radius: 3rem;
-      padding: 0.85rem 2rem;
+      padding: 0.9rem 2rem;
       font-size: clamp(0.85rem, 3.8vw, 1rem);
       font-weight: 800;
       letter-spacing: 0.05em;
@@ -620,7 +336,9 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .promo-close-btn:active { transform: scale(0.95); }
+    .promo-close-btn:active {
+      transform: scale(0.95);
+    }
 
     .promo-progress {
       width: 100%;
@@ -629,7 +347,7 @@
       background: rgba(255,255,255,0.1);
       border-radius: 4px;
       overflow: hidden;
-      margin-top: 0.9rem;
+      margin-top: 1.2rem;
       opacity: 0;
       animation: fadeInScale 0.5s ease forwards 0.5s;
     }
@@ -647,7 +365,6 @@
       100% { width: 100%; }
     }
 
-    /* ====== STREAMING SCREEN ====== */
     .streaming-screen {
       position: absolute;
       top: 0; left: 0;
@@ -658,7 +375,6 @@
       justify-content: center;
       z-index: 25;
       padding: 1.2rem;
-      padding-bottom: 4.5rem;
       text-align: center;
       background: rgba(8, 8, 16, 0.98);
       opacity: 0;
@@ -673,7 +389,7 @@
       font-weight: 800;
       color: #fff;
       letter-spacing: 0.02em;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
       line-height: 1.3;
       opacity: 0;
       animation: fadeInScale 0.8s ease forwards;
@@ -691,10 +407,10 @@
     .platforms {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.6rem;
+      gap: 0.7rem;
       width: 100%;
       max-width: 400px;
-      max-height: 68vh;
+      max-height: 70vh;
       overflow-y: auto;
       padding: 0.3rem;
       -webkit-overflow-scrolling: touch;
@@ -707,9 +423,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.7rem 0.4rem;
-      border-radius: 1.1rem;
+      gap: 0.5rem;
+      padding: 0.8rem 0.5rem;
+      border-radius: 1.2rem;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.1);
       width: 100%;
@@ -727,12 +443,12 @@
     }
 
     .platform-logo {
-      width: 55px; height: 55px;
+      width: 60px; height: 60px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       background: #000;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
@@ -741,7 +457,7 @@
     .platform-logo svg { width: 100%; height: 100%; }
 
     .platform-name {
-      font-size: clamp(0.65rem, 2.7vw, 0.82rem);
+      font-size: clamp(0.7rem, 3vw, 0.9rem);
       font-weight: 700;
       color: #fff;
       text-align: center;
@@ -749,7 +465,6 @@
       line-height: 1.15;
     }
 
-    /* ====== FINAL SCREEN ====== */
     .final-screen {
       position: absolute;
       top: 0; left: 0;
@@ -760,7 +475,6 @@
       justify-content: center;
       z-index: 25;
       padding: 1.5rem;
-      padding-bottom: 4.5rem;
       text-align: center;
       background: radial-gradient(circle at 50% 40%, #1a0f2e, #08060f);
       opacity: 0;
@@ -866,7 +580,6 @@
 
     .final-cta:active { transform: scale(0.96); }
 
-    /* ====== MAIN CONTENT ====== */
     .main-content {
       position: relative;
       z-index: 10;
@@ -877,7 +590,6 @@
       width: 100%;
       height: 100%;
       padding: 1.5rem;
-      padding-bottom: 4.5rem;
       text-align: center;
       gap: 1rem;
       opacity: 0;
@@ -889,6 +601,7 @@
     }
 
     .main-content::-webkit-scrollbar { display: none; }
+
     .main-content.active { opacity: 1; visibility: visible; }
 
     .welcome-card {
@@ -955,7 +668,6 @@
       box-shadow: 0 8px 15px -5px rgba(90, 58, 255, 0.8);
     }
 
-    /* ====== APPS OPTIONS ====== */
     .apps-options {
       display: flex;
       flex-direction: column;
@@ -1069,7 +781,6 @@
 
     .app-option:active .app-option-arrow { transform: translateX(3px); }
 
-    /* ====== SUB-OPCIONES DE STELLA ====== */
     .stella-suboptions {
       display: flex;
       flex-direction: column;
@@ -1167,7 +878,6 @@
       font-weight: 900;
     }
 
-    /* ====== MODAL DEL VIDEO ====== */
     .video-modal {
       position: fixed;
       top: 0; left: 0;
@@ -1281,161 +991,48 @@
       filter: drop-shadow(0 0 12px rgba(255, 179, 71, 0.5));
     }
 
-    /* ====== MODAL ORGULLOSAMENTE VENEZOLANO ====== */
-    .venezolano-modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 200;
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.4s ease, visibility 0.4s;
-    }
-
-    .venezolano-modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .venezolano-flag {
-      width: 100px;
-      height: 70px;
-      margin-bottom: 1.5rem;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 0 2px rgba(255, 255, 255, 0.15);
-      animation: flagIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      opacity: 0;
-      transform: scale(0.6);
-      display: flex;
-      flex-direction: column;
-    }
-
-    @keyframes flagIn {
-      0% { opacity: 0; transform: scale(0.6) rotate(-8deg); }
-      60% { opacity: 1; transform: scale(1.1) rotate(3deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
-
-    .venezolano-flag .stripe-yellow {
-      flex: 1;
-      background: #FFCC00;
-    }
-
-    .venezolano-flag .stripe-blue {
-      flex: 1;
-      background: #0033A0;
+    .qr-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 3px;
-    }
-
-    .venezolano-flag .stripe-red {
-      flex: 1;
-      background: #CF142B;
-    }
-
-    .venezolano-flag .stripe-blue .star {
-      color: #fff;
-      font-size: 10px;
-      line-height: 1;
-    }
-
-    .venezolano-text {
-      font-size: clamp(1.4rem, 6vw, 2.2rem);
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      text-align: center;
-      line-height: 1.2;
-      background: linear-gradient(135deg, #FFCC00, #fff, #CF142B, #FFCC00);
-      background-size: 300% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shineText 3s linear infinite, textIn 0.7s ease forwards 0.25s;
-      filter: drop-shadow(0 4px 20px rgba(255, 204, 0, 0.4));
-      opacity: 0;
-      transform: translateY(20px);
-      max-width: 90%;
-    }
-
-    @keyframes textIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .venezolano-sub {
-      font-size: clamp(0.85rem, 3.5vw, 1.05rem);
-      color: rgba(255, 255, 255, 0.85);
-      margin-top: 1rem;
-      text-align: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 0.55rem 1.1rem;
+      border-radius: 3rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(230, 220, 255, 0.9);
+      font-size: 0.8rem;
       font-weight: 500;
       letter-spacing: 0.02em;
-      opacity: 0;
-      animation: textIn 0.7s ease forwards 0.5s;
-      max-width: 85%;
+      z-index: 15;
+      white-space: nowrap;
+      pointer-events: none;
     }
 
-    .venezolano-close {
-      margin-top: 2rem;
-      background: linear-gradient(145deg, #CF142B, #8a0e1d);
-      color: #fff;
-      border: none;
-      border-radius: 3rem;
-      padding: 0.9rem 2.2rem;
-      font-size: clamp(0.85rem, 3.8vw, 1rem);
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 12px 25px -8px rgba(207, 20, 43, 0.7);
-      opacity: 0;
-      animation: textIn 0.6s ease forwards 0.75s;
-      transition: transform 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .venezolano-close:active { transform: scale(0.95); }
-
-    .venezolano-countdown {
-      font-size: 0.85rem;
-      color: #ffb199;
-      margin-top: 0.8rem;
-      letter-spacing: 0.05em;
-      font-weight: 600;
-      opacity: 0;
-      animation: textIn 0.6s ease forwards 0.9s;
+    .qr-badge svg {
+      width: 16px; height: 16px;
+      fill: none;
+      stroke: #b8a6ff;
+      stroke-width: 1.8;
     }
 
     @media (max-height: 700px) {
       .welcome-card { padding: 1.6rem 1.3rem; }
-      .intro-text { font-size: clamp(1.3rem, 5.8vw, 2.2rem); top: 8vh; }
-      .intro-long-text { font-size: clamp(0.85rem, 3.6vw, 1.2rem); top: 4vh; }
-      .intro-sub { top: 28vh; }
-      .intro-first { padding-top: 4vh; }
+      .intro-text { font-size: clamp(1.5rem, 7vw, 2.2rem); }
       .sports-list { gap: 0.4rem; }
       .sport-item { padding: 0.4rem 0.9rem; font-size: clamp(0.8rem, 3.8vw, 1rem); }
       .sport-logo { width: 34px; height: 34px; }
-      .platform-logo { width: 46px; height: 46px; }
-      .platform-item { padding: 0.55rem 0.35rem; }
+      .platform-logo { width: 48px; height: 48px; }
+      .platform-item { padding: 0.6rem 0.4rem; }
       .app-option-logo { width: 50px; height: 50px; }
       .sub-option-icon { width: 38px; height: 38px; font-size: 1.2rem; }
       .apps-options.visible { max-height: 700px; }
-      .promo-image-wrap { max-height: 52vh; }
-      .promo-image-wrap img { max-height: 52vh; }
-      .promo-banner { padding: 0.6rem 0.8rem; }
-      .venezolano-flag { width: 85px; height: 60px; }
+      .promo-image-wrap { max-height: 65vh; }
     }
 
     ::selection { background: transparent; }
@@ -1445,87 +1042,58 @@
   <div class="app">
     <div class="glow"></div>
 
-    <!-- ====== ENLACE PANA XTREAMING (FIJO) ====== -->
-    <div class="panax-link" id="panaxLink" role="button" aria-label="Visitar panaxtreaming.net">
-      <span class="link-dot"></span>
-      <span class="link-text">www.panaxtreaming.net</span>
-    </div>
-
-    <!-- ====== INTRO SCREEN ====== -->
     <div class="intro-screen" id="introScreen">
-      <img class="intro-bg-image" src="https://i.pinimg.com/736x/16/a0/60/16a0607dd43dbf93691c135f022f8dce.jpg" alt="Familia disfrutando entretenimiento" />
-      <div class="intro-overlay"></div>
-
       <div class="intro-first" id="introFirst">
-        <div class="intro-long-text" id="introLongText">
-          <span id="typewriterText"></span><span class="cursor" id="cursor">|</span>
-        </div>
-
         <div class="intro-text" id="introText">
           Estas a un click de tener todo el entretenimiento
         </div>
-        <div class="intro-sub" id="introSub">✨ prepárate ✨</div>
+        <div class="intro-sub" id="introSub">preparate</div>
       </div>
     </div>
 
-    <!-- ====== SPORTS SCREEN ====== -->
     <div class="sports-screen" id="sportsScreen">
       <div class="sports-title">
-        <span>⚽</span> DEPORTES EN VIVO <span>⚽</span>
+        <span>&#9917;</span> DEPORTES EN VIVO <span>&#9917;</span>
       </div>
       <div class="sports-list" id="sportsList"></div>
     </div>
 
-    <!-- ====== PROMO MODAL ====== -->
     <div class="promo-modal" id="promoModal">
-      <div class="promo-banner">
-        <div class="banner-dot"></div>
-        <div class="banner-text">
-          MÁS DE <span class="banner-number">1800</span> CANALES EN VIVO
-        </div>
-      </div>
-
-      <div class="promo-modal-title">✨ Lo que puedes obtener ✨</div>
-
+      <div class="promo-modal-title">Lo que puedes obtener</div>
       <div class="promo-image-wrap">
         <img src="https://i.pinimg.com/736x/95/ac/3e/95ac3e1214a1ea9d27c47e538a2928b8.jpg" alt="Todo lo que puedes obtener" />
       </div>
-
       <div class="promo-progress">
         <div class="promo-progress-bar"></div>
       </div>
-
-      <button class="promo-close-btn" id="promoCloseBtn">Continuar →</button>
+      <button class="promo-close-btn" id="promoCloseBtn">Continuar</button>
     </div>
 
-    <!-- ====== STREAMING SCREEN ====== -->
     <div class="streaming-screen" id="streamingScreen">
       <div class="streaming-title">
-        Las <em>películas y series</em> que buscas en
+        Las <em>peliculas y series</em> que buscas en
       </div>
       <div class="platforms" id="platformsList"></div>
     </div>
 
-    <!-- ====== FINAL SCREEN ====== -->
     <div class="final-screen" id="finalScreen">
-      <div class="final-badge">🎬 + 15 MIL TÍTULOS</div>
+      <div class="final-badge">+ 15 MIL TITULOS</div>
       <div class="final-number">+15,000</div>
-      <div class="final-text">películas y series<br>en tu teléfono</div>
+      <div class="final-text">peliculas y series<br>en tu telefono</div>
       <div class="final-devices">
-        <span>📱 Smartphone</span>
-        <span>📺 Smart TV</span>
-        <span>🔥 Fire TV</span>
-        <span>💻 Tablet</span>
+        <span>Smartphone</span>
+        <span>Smart TV</span>
+        <span>Fire TV</span>
+        <span>Tablet</span>
       </div>
       <button class="final-cta" id="finalBtn">Comenzar ahora</button>
     </div>
 
-    <!-- ====== MAIN CONTENT ====== -->
     <div class="main-content" id="mainContent">
       <div class="welcome-card" id="welcomeCard">
-        <h2>¡Vamos a descargar para probar gratis el servicio!</h2>
-        <p>Selecciona una opción y disfruta de todo el contenido.</p>
-        <button class="cta-button" id="startBtn">Lo quiero! 🔥</button>
+        <h2>Vamos a descargar para probar gratis el servicio!</h2>
+        <p>Selecciona una opcion y disfruta de todo el contenido.</p>
+        <button class="cta-button" id="startBtn">Lo quiero!</button>
 
         <div class="apps-options" id="appsOptions">
           <div class="app-option" id="stellaOption">
@@ -1534,28 +1102,28 @@
             </div>
             <div class="app-option-info">
               <div class="app-option-name">STELLA TV</div>
-              <div class="app-option-desc">Nueva experiencia cinematográfica</div>
+              <div class="app-option-desc">Nueva experiencia cinematografica</div>
             </div>
-            <div class="app-option-arrow">→</div>
+            <div class="app-option-arrow">&#8594;</div>
           </div>
 
           <div class="stella-suboptions" id="stellaSuboptions">
             <div class="sub-option" id="tvSubOption">
-              <div class="sub-option-icon">📺</div>
+              <div class="sub-option-icon">&#128250;</div>
               <div class="sub-option-info">
                 <div class="sub-option-title">TV / Televisor</div>
-                <div class="sub-option-desc">Ver video tutorial de instalación</div>
+                <div class="sub-option-desc">Ver video tutorial de instalacion</div>
               </div>
-              <div class="sub-option-arrow">▶</div>
+              <div class="sub-option-arrow">&#9654;</div>
             </div>
 
             <div class="sub-option" id="phoneSubOption">
-              <div class="sub-option-icon">📱</div>
+              <div class="sub-option-icon">&#128241;</div>
               <div class="sub-option-info">
-                <div class="sub-option-title">Teléfono</div>
-                <div class="sub-option-desc">Descarga directa en tu móvil</div>
+                <div class="sub-option-title">Telefono</div>
+                <div class="sub-option-desc">Descarga directa en tu movil</div>
               </div>
-              <div class="sub-option-arrow">→</div>
+              <div class="sub-option-arrow">&#8594;</div>
             </div>
           </div>
 
@@ -1567,52 +1135,39 @@
               <div class="app-option-name">PANAXTREAMING</div>
               <div class="app-option-desc">Todo el entretenimiento</div>
             </div>
-            <div class="app-option-arrow">→</div>
+            <div class="app-option-arrow">&#8594;</div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="qr-badge" style="opacity:0; visibility:hidden;" id="qrBadge">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
+        <line x1="12" y1="12" x2="12" y2="12.01" stroke-width="2" />
+      </svg>
+      <span>Escaneado desde QR</span>
+    </div>
   </div>
 
-  <!-- ====== MODAL DEL VIDEO ====== -->
   <div class="video-modal" id="videoModal">
     <div class="video-modal-header">
       <div class="video-modal-title">
-        <span></span> Instalación Stella TV
+        <span></span> Instalacion Stella TV
       </div>
-      <button class="video-modal-close" id="videoModalClose" aria-label="Cerrar">✕</button>
+      <button class="video-modal-close" id="videoModalClose" aria-label="Cerrar">&#10005;</button>
     </div>
     <div class="video-modal-body">
       <div id="videoContainer" style="width:100%;height:100%;"></div>
     </div>
     <div class="video-modal-footer">
-      <div class="promo-text">✨ Al instalar pide tu PRUEBA GRATIS ✨</div>
+      <div class="promo-text">Al instalar pide tu PRUEBA GRATIS</div>
     </div>
   </div>
 
-  <!-- ====== MODAL ORGULLOSAMENTE VENEZOLANO ====== -->
-  <div class="venezolano-modal" id="venezolanoModal">
-    <div class="venezolano-flag">
-      <div class="stripe-yellow"></div>
-      <div class="stripe-blue">
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-      </div>
-      <div class="stripe-red"></div>
-    </div>
-    <div class="venezolano-text">¡ORGULLOSAMENTE VENEZOLANO! 🇻🇪</div>
-    <div class="venezolano-sub">Abriendo <strong>www.panaxtreaming.net</strong>... ¡Disfruta del mejor entretenimiento!</div>
-    <button class="venezolano-close" id="venezolanoClose">Ir al sitio ahora →</button>
-    <div class="venezolano-countdown" id="venezolanoCountdown">Redirigiendo en 3 segundos...</div>
-  </div>
-
-  <!-- ====== LOGOS SVG ====== -->
   <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
     <symbol id="logo-espn" viewBox="0 0 100 100">
       <rect width="100" height="100" fill="#000"/>
@@ -1666,152 +1221,78 @@
       <circle cx="65" cy="50" r="18" fill="none" stroke="#fff" stroke-width="6"/>
       <circle cx="60" cy="50" r="3" fill="#fff"/>
     </symbol>
-    <!-- APPLE TV+ -->
-    <symbol id="logo-appletv" viewBox="0 0 100 100">
-      <rect width="100" height="100" fill="#000"/>
-      <!-- Manzana estilizada -->
-      <path fill="#fff" d="M50 22 C46 22 42 25 40 28 C38 26 34 24 30 26 C25 28 22 34 24 42 C26 50 32 60 38 64 C42 66 46 64 50 63 C54 64 58 66 62 64 C68 60 74 50 76 42 C78 34 75 28 70 26 C66 24 62 26 60 28 C58 25 54 22 50 22 Z"/>
-      <!-- Hoja -->
-      <path fill="#fff" d="M50 22 C50 18 53 14 58 12 C58 16 56 20 50 22 Z"/>
-      <!-- Letra TV+ -->
-      <text x="50" y="82" font-family="Arial, sans-serif" font-size="11" font-weight="900" fill="#fff" text-anchor="middle" letter-spacing="0.5">TV+</text>
-    </symbol>
   </svg>
 
   <script>
     (function() {
       document.addEventListener('DOMContentLoaded', function() {
 
-        const introScreen = document.getElementById('introScreen');
-        const introFirst = document.getElementById('introFirst');
-        const introLongText = document.getElementById('introLongText');
-        const typewriterText = document.getElementById('typewriterText');
-        const cursor = document.getElementById('cursor');
-        const introText = document.getElementById('introText');
-        const introSub = document.getElementById('introSub');
-        const sportsScreen = document.getElementById('sportsScreen');
-        const sportsList = document.getElementById('sportsList');
-        const promoModal = document.getElementById('promoModal');
-        const promoCloseBtn = document.getElementById('promoCloseBtn');
-        const streamingScreen = document.getElementById('streamingScreen');
-        const platformsList = document.getElementById('platformsList');
-        const finalScreen = document.getElementById('finalScreen');
-        const finalBtn = document.getElementById('finalBtn');
-        const mainContent = document.getElementById('mainContent');
-        const welcomeCard = document.getElementById('welcomeCard');
-        const startBtn = document.getElementById('startBtn');
-        const appsOptions = document.getElementById('appsOptions');
-        const stellaOption = document.getElementById('stellaOption');
-        const stellaSuboptions = document.getElementById('stellaSuboptions');
-        const tvSubOption = document.getElementById('tvSubOption');
-        const phoneSubOption = document.getElementById('phoneSubOption');
-        const panaxOption = document.getElementById('panaxOption');
-        const videoModal = document.getElementById('videoModal');
-        const videoModalClose = document.getElementById('videoModalClose');
-        const videoContainer = document.getElementById('videoContainer');
-        const panaxLink = document.getElementById('panaxLink');
-        const venezolanoModal = document.getElementById('venezolanoModal');
-        const venezolanoClose = document.getElementById('venezolanoClose');
-        const venezolanoCountdown = document.getElementById('venezolanoCountdown');
+        var introScreen = document.getElementById('introScreen');
+        var introFirst = document.getElementById('introFirst');
+        var sportsScreen = document.getElementById('sportsScreen');
+        var sportsList = document.getElementById('sportsList');
+        var promoModal = document.getElementById('promoModal');
+        var promoCloseBtn = document.getElementById('promoCloseBtn');
+        var streamingScreen = document.getElementById('streamingScreen');
+        var platformsList = document.getElementById('platformsList');
+        var finalScreen = document.getElementById('finalScreen');
+        var finalBtn = document.getElementById('finalBtn');
+        var mainContent = document.getElementById('mainContent');
+        var welcomeCard = document.getElementById('welcomeCard');
+        var startBtn = document.getElementById('startBtn');
+        var appsOptions = document.getElementById('appsOptions');
+        var stellaOption = document.getElementById('stellaOption');
+        var stellaSuboptions = document.getElementById('stellaSuboptions');
+        var tvSubOption = document.getElementById('tvSubOption');
+        var phoneSubOption = document.getElementById('phoneSubOption');
+        var panaxOption = document.getElementById('panaxOption');
+        var qrBadge = document.getElementById('qrBadge');
+        var videoModal = document.getElementById('videoModal');
+        var videoModalClose = document.getElementById('videoModalClose');
+        var videoContainer = document.getElementById('videoContainer');
 
-        const YOUTUBE_SHORT_ID = 'SqGikopF3ug';
-        const PHONE_LINK = 'https://bit.ly/4bg5tgE';
-        const PANAX_URL = 'https://www.panaxtreaming.net';
+        var YOUTUBE_SHORT_ID = 'SqGikopF3ug';
+        var PHONE_LINK = 'https://bit.ly/4bg5tgE';
 
-        let promoClosed = false;
-        let streamingShown = false;
-        let countdownInterval = null;
+        var promoClosed = false;
+        var streamingShown = false;
 
-        // =============================================
-        // EFECTO MÁQUINA DE ESCRIBIR
-        // =============================================
-        const fraseLarga = "¿Te gustaría ver TV EN VIVO, DEPORTES, NOTICIAS, INFANTILES, MÚSICA Y LAS MEJORES PELÍCULAS Y SERIES EN UN SOLO LUGAR? SI TIENES SUERTE HOY TE PUEDE SALIR GRATIS";
-
-        let typeIndex = 0;
-        const typeSpeed = 45;
-        let typewriterInterval;
-
-        function startTypewriter() {
-          typewriterInterval = setInterval(() => {
-            if (typeIndex < fraseLarga.length) {
-              typewriterText.textContent += fraseLarga.charAt(typeIndex);
-              typeIndex++;
-            } else {
-              clearInterval(typewriterInterval);
-              setTimeout(() => {
-                if (cursor) cursor.style.display = 'none';
-              }, 800);
-            }
-          }, typeSpeed);
-        }
-
-        setTimeout(startTypewriter, 800);
-
-        const typeDuration = fraseLarga.length * typeSpeed;
-        const typeEndTime = 800 + typeDuration;
-        const readTime = 2500;
-        const fadeOutTime = typeEndTime + readTime;
-
-        setTimeout(() => {
-          introLongText.classList.add('fade-out-text');
-        }, fadeOutTime);
-
-        const showShortTime = fadeOutTime + 1000;
-
-        setTimeout(() => {
-          introLongText.style.display = 'none';
-          introText.classList.add('active');
-          introSub.classList.add('active');
-        }, showShortTime);
-
-        const closeIntroTime = showShortTime + 4000;
-
-        setTimeout(() => {
+        setTimeout(function() {
           introFirst.classList.add('fade-out');
-        }, closeIntroTime);
+        }, 3500);
 
-        // =============================================
-        // FASE D: Deportes
-        // =============================================
-        const sportsItems = [
+        var sportsItems = [
           { text: 'ESPN', logoId: 'logo-espn', highlight: true },
           { text: 'DIRECTV SPORTS', logoId: 'logo-directv', highlight: true },
-          { text: 'LIGA ESPAÑOLA 🇪🇸', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'LIGA INGLESA 🏴󠁧󠁢󠁥󠁮󠁧󠁿', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'LIGA ITALIANA 🇮🇹', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'LIGA ALEMANA 🇩🇪', logoId: null, highlight: false, emoji: '⚽' },
-          { text: 'CHAMPIONS LEAGUE', logoId: null, highlight: true, emoji: '🏆' }
+          { text: 'LIGA ESPANOLA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'LIGA INGLESA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'LIGA ITALIANA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'LIGA ALEMANA', logoId: null, highlight: false, emoji: '&#9917;' },
+          { text: 'CHAMPIONS LEAGUE', logoId: null, highlight: true, emoji: '&#127942;' }
         ];
 
         function showSports() {
           introScreen.classList.add('hidden');
           sportsScreen.classList.add('active');
           sportsList.innerHTML = '';
-          sportsItems.forEach((item, index) => {
-            const div = document.createElement('div');
+          sportsItems.forEach(function(item, index) {
+            var div = document.createElement('div');
             div.className = 'sport-item' + (item.highlight ? ' highlight' : '');
             div.style.animationDelay = (index * 0.3) + 's';
             if (item.logoId) {
-              div.innerHTML = `
-                <div class="sport-logo"><svg><use href="#${item.logoId}"/></svg></div>
-                <div class="sport-text">${item.text}</div>
-              `;
+              div.innerHTML =
+                '<div class="sport-logo"><svg><use href="#' + item.logoId + '"/></svg></div>' +
+                '<div class="sport-text">' + item.text + '</div>';
             } else {
-              div.innerHTML = `
-                <div class="sport-logo" style="background:transparent;font-size:24px;">${item.emoji || '⚽'}</div>
-                <div class="sport-text">${item.text}</div>
-              `;
+              div.innerHTML =
+                '<div class="sport-logo" style="background:transparent;font-size:24px;">' + (item.emoji || '&#9917;') + '</div>' +
+                '<div class="sport-text">' + item.text + '</div>';
             }
             sportsList.appendChild(div);
           });
         }
 
-        setTimeout(showSports, closeIntroTime + 500);
-
-        // =============================================
-        // FASE E: Promo Modal
-        // =============================================
-        const promoTime = closeIntroTime + 500 + 7000;
+        setTimeout(showSports, 4000);
 
         function showPromoModal() {
           promoModal.classList.add('active');
@@ -1821,7 +1302,7 @@
           if (promoClosed) return;
           promoClosed = true;
           promoModal.classList.remove('active');
-          setTimeout(() => {
+          setTimeout(function() {
             if (!streamingShown) {
               streamingShown = true;
               sportsScreen.classList.remove('active');
@@ -1831,20 +1312,19 @@
           }, 500);
         }
 
-        setTimeout(showPromoModal, promoTime);
+        setTimeout(showPromoModal, 12500);
+
         promoCloseBtn.addEventListener('click', closePromoModal);
 
-        setTimeout(() => {
-          if (!promoClosed) closePromoModal();
-        }, promoTime + 8500);
+        setTimeout(function() {
+          if (!promoClosed) {
+            closePromoModal();
+          }
+        }, 21000);
 
-        // =============================================
-        // FASE F: Streaming
-        // =============================================
-        const platforms = [
+        var platforms = [
           { name: 'Netflix', logoId: 'logo-netflix' },
           { name: 'Disney+', logoId: 'logo-disney' },
-          { name: 'Apple TV+', logoId: 'logo-appletv' },
           { name: 'Prime Video', logoId: 'logo-prime' },
           { name: 'Max', logoId: 'logo-max' },
           { name: 'Paramount+', logoId: 'logo-paramount' },
@@ -1854,38 +1334,38 @@
 
         function renderPlatforms() {
           platformsList.innerHTML = '';
-          platforms.forEach((p, index) => {
-            const div = document.createElement('div');
+          platforms.forEach(function(p, index) {
+            var div = document.createElement('div');
             div.className = 'platform-item';
-            div.style.animationDelay = (index * 0.2) + 's';
-            div.innerHTML = `
-              <div class="platform-logo"><svg><use href="#${p.logoId}"/></svg></div>
-              <div class="platform-name">${p.name}</div>
-            `;
+            div.style.animationDelay = (index * 0.25) + 's';
+            div.innerHTML =
+              '<div class="platform-logo"><svg><use href="#' + p.logoId + '"/></svg></div>' +
+              '<div class="platform-name">' + p.name + '</div>';
             platformsList.appendChild(div);
           });
         }
 
-        // FASE G: Final
         function showFinal() {
           streamingScreen.classList.remove('active');
           finalScreen.classList.add('active');
         }
 
-        const checkStreamingAndFinal = setInterval(() => {
+        var checkStreamingAndFinal = setInterval(function() {
           if (streamingShown) {
             clearInterval(checkStreamingAndFinal);
             setTimeout(showFinal, 8000);
           }
         }, 300);
 
-        // FASE H: Main
         function showMain() {
           finalScreen.classList.remove('active');
           mainContent.classList.add('active');
+          qrBadge.style.transition = 'opacity 1s ease, visibility 1s';
+          qrBadge.style.opacity = '1';
+          qrBadge.style.visibility = 'visible';
         }
 
-        const checkFinalAndMain = setInterval(() => {
+        var checkFinalAndMain = setInterval(function() {
           if (finalScreen.classList.contains('active')) {
             clearInterval(checkFinalAndMain);
             setTimeout(showMain, 6000);
@@ -1895,16 +1375,19 @@
         finalBtn.addEventListener('click', function() {
           finalScreen.classList.remove('active');
           mainContent.classList.add('active');
+          qrBadge.style.transition = 'opacity 1s ease, visibility 1s';
+          qrBadge.style.opacity = '1';
+          qrBadge.style.visibility = 'visible';
         });
 
         startBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          this.textContent = '¡Elige tu app! 👇';
+          this.textContent = 'Elige tu app!';
           this.style.background = 'linear-gradient(145deg, #4cd964, #30b34a)';
           this.style.boxShadow = '0 15px 25px -8px #30b34a';
           appsOptions.classList.add('visible');
           welcomeCard.style.transform = 'scale(0.98)';
-          setTimeout(() => { welcomeCard.style.transform = 'scale(1)'; }, 200);
+          setTimeout(function() { welcomeCard.style.transform = 'scale(1)'; }, 200);
         });
 
         stellaOption.addEventListener('click', function() {
@@ -1914,17 +1397,15 @@
         });
 
         tvSubOption.addEventListener('click', function() {
-          videoContainer.innerHTML = `
-            <iframe
-              src="https://www.youtube.com/embed/${YOUTUBE_SHORT_ID}?autoplay=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${YOUTUBE_SHORT_ID}"
-              title="Instalación Stella TV"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              playsinline
-            ></iframe>
-          `;
+          videoContainer.innerHTML =
+            '<iframe ' +
+              'src="https://www.youtube.com/embed/' + YOUTUBE_SHORT_ID + '?autoplay=1&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=' + YOUTUBE_SHORT_ID + '" ' +
+              'title="Instalacion Stella TV" ' +
+              'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+              'allowfullscreen ' +
+              'playsinline' +
+            '></iframe>';
           videoModal.classList.add('active');
-          document.body.classList.add('video-open');
         });
 
         phoneSubOption.addEventListener('click', function() {
@@ -1933,8 +1414,7 @@
 
         function closeVideoModal() {
           videoModal.classList.remove('active');
-          document.body.classList.remove('video-open');
-          setTimeout(() => { videoContainer.innerHTML = ''; }, 500);
+          setTimeout(function() { videoContainer.innerHTML = ''; }, 500);
         }
 
         videoModalClose.addEventListener('click', closeVideoModal);
@@ -1947,51 +1427,11 @@
         panaxOption.addEventListener('click', function() {
           this.style.background = 'linear-gradient(145deg, rgba(255,8,68,0.3), rgba(255,177,153,0.3))';
           this.style.borderColor = 'rgba(255,8,68,0.7)';
-          setTimeout(() => {
-            window.open(PANAX_URL, '_blank', 'noopener,noreferrer');
+          setTimeout(function() {
+            alert('Abriendo PANAXTREAMING... Disfruta del contenido!');
           }, 150);
         });
 
-        // =============================================
-        // ENLACE PANAXTREAMING → MODAL ORGULLOSAMENTE VENEZOLANO
-        // =============================================
-        panaxLink.addEventListener('click', function() {
-          // Mostrar modal
-          venezolanoModal.classList.add('active');
-
-          // Iniciar cuenta regresiva
-          let countdown = 3;
-          venezolanoCountdown.textContent = `Redirigiendo en ${countdown} segundos...`;
-
-          if (countdownInterval) clearInterval(countdownInterval);
-
-          countdownInterval = setInterval(() => {
-            countdown--;
-            if (countdown > 0) {
-              venezolanoCountdown.textContent = `Redirigiendo en ${countdown} segundos...`;
-            } else {
-              clearInterval(countdownInterval);
-              countdownInterval = null;
-              venezolanoCountdown.textContent = '¡Redirigiendo ahora!';
-              window.open(PANAX_URL, '_blank', 'noopener,noreferrer');
-              setTimeout(() => {
-                venezolanoModal.classList.remove('active');
-              }, 500);
-            }
-          }, 1000);
-        });
-
-        // Botón del modal "Ir al sitio ahora"
-        venezolanoClose.addEventListener('click', function() {
-          if (countdownInterval) {
-            clearInterval(countdownInterval);
-            countdownInterval = null;
-          }
-          window.open(PANAX_URL, '_blank', 'noopener,noreferrer');
-          venezolanoModal.classList.remove('active');
-        });
-
-        // Prevenir selección accidental
         document.body.addEventListener('touchstart', function(e) {
           if (e.target === document.body) e.preventDefault();
         }, { passive: false });
