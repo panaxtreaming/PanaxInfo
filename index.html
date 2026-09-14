@@ -780,6 +780,331 @@
       line-height: 1.15;
     }
 
+    /* ====== TEXTO FINAL STREAMING ====== */
+    .streaming-footer-text {
+      font-size: clamp(0.85rem, 4vw, 1.15rem);
+      font-weight: 800;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.35;
+      max-width: 90%;
+      margin-top: 1.2rem;
+      padding: 0 0.5rem;
+      background: linear-gradient(90deg, #ffd700, #ffb347, #ffd700);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shineText 2.5s linear infinite, fadeInScale 0.8s ease forwards 0.4s;
+      filter: drop-shadow(0 0 12px rgba(255, 179, 71, 0.5));
+      opacity: 0;
+      flex-shrink: 0;
+    }
+
+    /* ====== RULETA DE LA SUERTE ====== */
+    .roulette-screen {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 26;
+      padding: 1.2rem;
+      padding-bottom: 5rem;
+      text-align: center;
+      background: rgba(8, 8, 16, 0.98);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s;
+      box-sizing: border-box;
+      overflow: hidden;
+      gap: 1rem;
+    }
+
+    .roulette-screen.active { opacity: 1; visibility: visible; }
+
+    .roulette-title {
+      font-size: clamp(1.3rem, 6vw, 2rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+      background: linear-gradient(90deg, #ffd700, #ff8a00, #ffd700);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shineText 2.5s linear infinite;
+      filter: drop-shadow(0 0 20px rgba(255, 179, 71, 0.6));
+      flex-shrink: 0;
+      max-width: 92%;
+    }
+
+    .roulette-wrapper {
+      position: relative;
+      width: min(78vw, 340px);
+      height: min(78vw, 340px);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.5rem 0;
+    }
+
+    .roulette-wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      border: 6px solid #ffd700;
+      box-shadow:
+        0 0 0 4px rgba(0, 0, 0, 0.6),
+        0 25px 60px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(255, 179, 71, 0.35);
+      overflow: hidden;
+      transition: transform 5.5s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+      will-change: transform;
+    }
+
+    .roulette-wheel-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      background: conic-gradient(
+        #ff0844 0deg 45deg,
+        #7b5aff 45deg 90deg,
+        #00c9a7 90deg 135deg,
+        #ffb347 135deg 180deg,
+        #ff0844 180deg 225deg,
+        #7b5aff 225deg 270deg,
+        #00c9a7 270deg 315deg,
+        #ffb347 315deg 360deg
+      );
+    }
+
+    .roulette-wheel-inner::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 22%;
+      height: 22%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff, #e0d0ff);
+      box-shadow: 0 0 0 4px #ffd700, 0 0 0 8px rgba(0,0,0,0.5), 0 6px 20px rgba(0,0,0,0.6);
+      z-index: 5;
+    }
+
+    .roulette-label {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform-origin: 0 0;
+      font-size: clamp(0.6rem, 2.6vw, 0.85rem);
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.7);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    .roulette-pointer {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 30px solid #ffd700;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.7)) drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .roulette-pointer::after {
+      content: '';
+      position: absolute;
+      top: -34px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff700, #ffb347);
+      box-shadow: 0 0 12px #ffd700;
+    }
+
+    .roulette-spin-btn {
+      background: linear-gradient(145deg, #ff0844, #ff5e5e);
+      color: #fff;
+      border: none;
+      border-radius: 3rem;
+      padding: 1rem 2.6rem;
+      font-size: clamp(0.95rem, 4.2vw, 1.15rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 15px 30px -8px rgba(255, 8, 68, 0.8), 0 0 0 2px rgba(255, 215, 0, 0.3) inset;
+      transition: transform 0.2s ease, opacity 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+      animation: spinBtnPulse 2s infinite;
+    }
+
+    @keyframes spinBtnPulse {
+      0%, 100% { box-shadow: 0 15px 30px -8px rgba(255, 8, 68, 0.8), 0 0 0 2px rgba(255, 215, 0, 0.3) inset; transform: scale(1); }
+      50% { box-shadow: 0 18px 38px -6px rgba(255, 8, 68, 1), 0 0 0 3px rgba(255, 215, 0, 0.5) inset; transform: scale(1.04); }
+    }
+
+    .roulette-spin-btn:active {
+      transform: scale(0.95);
+    }
+
+    .roulette-spin-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      animation: none;
+    }
+
+    .roulette-result {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 260;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s;
+      box-sizing: border-box;
+      gap: 1.4rem;
+      text-align: center;
+    }
+
+    .roulette-result.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .roulette-result-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      flex-shrink: 0;
+      animation: resultIconIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .roulette-result-icon.win {
+      background: linear-gradient(145deg, #ffd700, #ffb347);
+      box-shadow: 0 20px 50px rgba(255, 179, 71, 0.6), 0 0 0 4px rgba(255, 255, 255, 0.15) inset;
+      animation: resultIconIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, winPulse 1.8s infinite 0.7s;
+    }
+
+    .roulette-result-icon.lose {
+      background: linear-gradient(145deg, #7b5aff, #5a3aff);
+      box-shadow: 0 20px 50px rgba(90, 58, 255, 0.5), 0 0 0 4px rgba(255, 255, 255, 0.12) inset;
+      animation: resultIconIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes resultIconIn {
+      0% { opacity: 0; transform: scale(0.4) rotate(-15deg); }
+      60% { opacity: 1; transform: scale(1.15) rotate(5deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes winPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 20px 50px rgba(255, 179, 71, 0.6), 0 0 0 4px rgba(255, 255, 255, 0.15) inset; }
+      50% { transform: scale(1.06); box-shadow: 0 28px 65px rgba(255, 179, 71, 0.85), 0 0 0 5px rgba(255, 255, 255, 0.25) inset; }
+    }
+
+    .roulette-result-text {
+      font-size: clamp(1.1rem, 5.2vw, 1.6rem);
+      font-weight: 900;
+      line-height: 1.35;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      max-width: 92%;
+      animation: resultTextIn 0.7s ease forwards 0.2s;
+      opacity: 0;
+    }
+
+    .roulette-result-text.win {
+      background: linear-gradient(90deg, #ffd700, #fff700, #ffb347, #ffd700);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shineText 2.5s linear infinite, resultTextIn 0.7s ease forwards 0.2s;
+      filter: drop-shadow(0 0 18px rgba(255, 179, 71, 0.6));
+    }
+
+    .roulette-result-text.lose {
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 25px rgba(123, 90, 255, 0.5);
+    }
+
+    @keyframes resultTextIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .roulette-result-btn {
+      background: linear-gradient(145deg, #7b5aff, #5a3aff);
+      color: #fff;
+      border: none;
+      border-radius: 3rem;
+      padding: 1rem 2.5rem;
+      font-size: clamp(0.9rem, 4vw, 1.05rem);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 15px 30px -8px rgba(90, 58, 255, 0.7);
+      transition: transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      animation: resultBtnIn 0.6s ease forwards 0.45s;
+      opacity: 0;
+    }
+
+    @keyframes resultBtnIn {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .roulette-result-btn:active {
+      transform: scale(0.95);
+    }
+
+    .roulette-counter {
+      font-size: clamp(0.7rem, 3vw, 0.85rem);
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
     /* ====== MAIN CONTENT ====== */
     .main-content {
       position: relative;
@@ -1583,6 +1908,9 @@
       .panax-option-btn { padding: 0.8rem 1rem; }
       .panax-option-icon { width: 40px; height: 40px; font-size: 1.2rem; }
       .reminder-icon { width: 72px; height: 72px; font-size: 2.2rem; }
+      .streaming-footer-text { font-size: clamp(0.75rem, 3.6vw, 1rem); margin-top: 0.9rem; }
+      .roulette-wrapper { width: min(65vw, 260px); height: min(65vw, 260px); }
+      .roulette-result-icon { width: 80px; height: 80px; font-size: 2.4rem; }
     }
 
     ::selection { background: transparent; }
@@ -1651,6 +1979,20 @@
         Las <em>peliculas y series</em> que buscas en
       </div>
       <div class="platforms" id="platformsList"></div>
+      <div class="streaming-footer-text">LAS CONSIGUES EN UN SOLO LUGAR SIN PAGAR MAS POR ELLAS</div>
+    </div>
+
+    <!-- ====== RULETA DE LA SUERTE ====== -->
+    <div class="roulette-screen" id="rouletteScreen">
+      <div class="roulette-title">PRUEBA TU SUERTE HOY</div>
+      <div class="roulette-wrapper">
+        <div class="roulette-pointer"></div>
+        <div class="roulette-wheel" id="rouletteWheel">
+          <div class="roulette-wheel-inner" id="rouletteInner"></div>
+        </div>
+      </div>
+      <button class="roulette-spin-btn" id="rouletteSpinBtn">GIRAR</button>
+      <div class="roulette-counter" id="rouletteCounter">Intentos: 0</div>
     </div>
 
     <!-- ====== MAIN CONTENT ====== -->
@@ -1787,6 +2129,13 @@
     <button class="reminder-continue-btn" id="reminderContinueBtn">Continuar &gt;</button>
   </div>
 
+  <!-- ====== MODAL RESULTADO RULETA ====== -->
+  <div class="roulette-result" id="rouletteResult">
+    <div class="roulette-result-icon" id="rouletteResultIcon">🎁</div>
+    <div class="roulette-result-text" id="rouletteResultText"></div>
+    <button class="roulette-result-btn" id="rouletteResultBtn">Continuar &gt;</button>
+  </div>
+
   <!-- ====== LOGOS SVG ====== -->
   <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
     <symbol id="logo-espn" viewBox="0 0 100 100">
@@ -1866,6 +2215,15 @@
         const promoCloseBtn = document.getElementById('promoCloseBtn');
         const streamingScreen = document.getElementById('streamingScreen');
         const platformsList = document.getElementById('platformsList');
+        const rouletteScreen = document.getElementById('rouletteScreen');
+        const rouletteWheel = document.getElementById('rouletteWheel');
+        const rouletteInner = document.getElementById('rouletteInner');
+        const rouletteSpinBtn = document.getElementById('rouletteSpinBtn');
+        const rouletteCounter = document.getElementById('rouletteCounter');
+        const rouletteResult = document.getElementById('rouletteResult');
+        const rouletteResultIcon = document.getElementById('rouletteResultIcon');
+        const rouletteResultText = document.getElementById('rouletteResultText');
+        const rouletteResultBtn = document.getElementById('rouletteResultBtn');
         const mainContent = document.getElementById('mainContent');
         const welcomeCard = document.getElementById('welcomeCard');
         const startBtn = document.getElementById('startBtn');
@@ -1904,6 +2262,45 @@
 
         // Variable para guardar la acción pendiente después del recordatorio
         let pendingAction = null;
+
+        // =============================================
+        // RULETA: ESTADO
+        // =============================================
+        // Contador de giros persistente en localStorage para que cada 5 personas gane
+        let spinCount = parseInt(localStorage.getItem('rouletteSpinCount') || '0', 10);
+        let isSpinning = false;
+        let rouletteFinished = false;
+
+        // Actualizar contador visual
+        function updateRouletteCounter() {
+          if (rouletteCounter) {
+            rouletteCounter.textContent = 'Intentos: ' + spinCount;
+          }
+        }
+        updateRouletteCounter();
+
+        // Crear las etiquetas de la ruleta
+        (function createRouletteLabels() {
+          const labels = ['GANA', 'SIGUE', 'INTENTA', 'SUERTE', 'GANA', 'SIGUE', 'INTENTA', 'SUERTE'];
+          const total = labels.length;
+          for (let i = 0; i < total; i++) {
+            const angle = (360 / total) * i + (360 / total) / 2;
+            const label = document.createElement('div');
+            label.className = 'roulette-label';
+            label.textContent = labels[i];
+            // Colocar la etiqueta desde el centro hacia afuera
+            label.style.transform = 'rotate(' + angle + 'deg) translate(0, -' + (rouletteInner.offsetWidth / 2 - 32) + 'px)';
+            // Ajustar para que el texto quede legible
+            label.style.transform = 'rotate(' + angle + 'deg) translateY(-' + (rouletteInner.offsetWidth / 2 - 36) + 'px) rotate(' + (-angle) + 'deg)';
+            label.style.left = '50%';
+            label.style.top = '50%';
+            label.style.marginLeft = '-20px';
+            label.style.marginTop = '-10px';
+            label.style.width = '40px';
+            label.style.textAlign = 'center';
+            rouletteInner.appendChild(label);
+          }
+        })();
 
         // =============================================
         // FUNCIÓN QUE MUESTRA EL RECORDATORIO Y LUEGO EJECUTA LA ACCIÓN
@@ -2067,20 +2464,82 @@
         }
 
         // =============================================
-        // FASE G: Main (directamente desde streaming)
+        // FASE G: RULETA DE LA SUERTE
         // =============================================
-        function showMain() {
+        // Después del streaming, mostrar la ruleta
+        function showRoulette() {
           streamingScreen.classList.remove('active');
-          mainContent.classList.add('active');
+          rouletteScreen.classList.add('active');
         }
 
-        const checkStreamingAndMain = setInterval(() => {
+        const checkStreamingAndRoulette = setInterval(() => {
           if (streamingShown) {
-            clearInterval(checkStreamingAndMain);
-            setTimeout(showMain, 8000);
+            clearInterval(checkStreamingAndRoulette);
+            setTimeout(showRoulette, 8000);
           }
         }, 300);
 
+        // Girar la ruleta
+        function spinRoulette() {
+          if (isSpinning || rouletteFinished) return;
+          isSpinning = true;
+          rouletteSpinBtn.disabled = true;
+          rouletteSpinBtn.textContent = 'GIRANDO...';
+
+          // Incrementar contador
+          spinCount++;
+          localStorage.setItem('rouletteSpinCount', spinCount.toString());
+          updateRouletteCounter();
+
+          // Determinar si gana: cada 5 personas
+          const isWinner = (spinCount % 5 === 0);
+
+          // Calcular rotación: muchas vueltas + ángulo aleatorio
+          const extraSpins = 6 + Math.floor(Math.random() * 4); // 6-9 vueltas
+          const randomAngle = Math.floor(Math.random() * 360);
+          const totalRotation = (extraSpins * 360) + randomAngle;
+
+          // Aplicar rotación
+          const currentRotation = parseFloat(rouletteWheel.dataset.rotation || '0');
+          const newRotation = currentRotation + totalRotation;
+          rouletteWheel.dataset.rotation = newRotation.toString();
+          rouletteWheel.style.transform = 'rotate(' + newRotation + 'deg)';
+
+          // Después de la animación (5.5s)
+          setTimeout(() => {
+            isSpinning = false;
+            rouletteFinished = true;
+
+            // Mostrar resultado
+            if (isWinner) {
+              rouletteResultIcon.textContent = '🏆';
+              rouletteResultIcon.className = 'roulette-result-icon win';
+              rouletteResultText.className = 'roulette-result-text win';
+              rouletteResultText.textContent = 'MI PANA ES TU DIA DE SUERTE GANASTE UNA PANTALLA DONDE LA VAMOS A DISFRUTAR';
+            } else {
+              rouletteResultIcon.textContent = '😅';
+              rouletteResultIcon.className = 'roulette-result-icon lose';
+              rouletteResultText.className = 'roulette-result-text lose';
+              rouletteResultText.textContent = 'LASTIMA PERO MIRA LO QUE TENEMOS PARA TI';
+            }
+            rouletteResult.classList.add('active');
+          }, 5600);
+        }
+
+        rouletteSpinBtn.addEventListener('click', spinRoulette);
+
+        // Botón continuar del resultado de la ruleta
+        rouletteResultBtn.addEventListener('click', function() {
+          rouletteResult.classList.remove('active');
+          setTimeout(() => {
+            rouletteScreen.classList.remove('active');
+            mainContent.classList.add('active');
+          }, 400);
+        });
+
+        // =============================================
+        // FASE H: Main
+        // =============================================
         startBtn.addEventListener('click', function(e) {
           e.preventDefault();
           this.textContent = 'Elige tu app!';
